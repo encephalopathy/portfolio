@@ -5,6 +5,7 @@ define(function(require, exports, module) {
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
 	var MenuView = require('views/MenuView');
+	var VideoView = require('views/VideoView');
 	//var HeaderData = require('views/headers')
     /*
      * @name AppView
@@ -16,19 +17,34 @@ define(function(require, exports, module) {
         View.apply(this, arguments);
 		
 		_createNavBar.call(this);
+		_createBackground.call(this);
     }
 
     AppView.prototype = Object.create(View.prototype);
     AppView.prototype.constructor = AppView;
 
 	function _createNavBar() {
-		this.navBar = new MenuView();
+		
+		this.navBar = new MenuView({
+			width : window.innerWidth,
+			topOffset : 250
+		});
 		
 		var menuViewModifier = new StateModifier({
-			transform : Transform.behind
+			transform : Transform.front
 		});
 		
 		this.add(menuViewModifier).add(this.navBar);
+	}
+	
+	function _createBackground() {
+		var backgroundVideo = new VideoView();
+		
+		var backgroundViewModifier = new StateModifier({
+			transform : Transform.behind
+		});
+		
+		this.add(backgroundViewModifier).add(backgroundVideo);
 	}
 	
     AppView.DEFAULT_OPTIONS = {
