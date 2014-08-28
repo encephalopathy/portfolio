@@ -4,7 +4,11 @@ define(function(require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
-
+	var EventHandler = require('famous/core/EventHandler');
+	var GenericSync	  = require('famous/inputs/GenericSync');
+	var MouseSync 	  = require('famous/inputs/MouseSync');
+	var TouchSync	  = require('famous/inputs/TouchSync');
+	GenericSync.register({ 'mouse' : MouseSync, 'touch': TouchSync});
     /*
      * @name TabView
      * @constructor
@@ -13,7 +17,6 @@ define(function(require, exports, module) {
 
     function TabView() {
         View.apply(this, arguments);
-		
 		_createBackground.call(this);
 		_createTitle.call(this);
 		//TODO: Create an Icon for each tab.
@@ -35,6 +38,15 @@ define(function(require, exports, module) {
         var transformModifier = new StateModifier({
             transform: Transform.behind
         });
+		var eventHandler = this;
+		backgroundSurface.on('click', function(message){
+			console.log('CLICKED ON BACKGROUND SURFACE');
+			//console.log('page transition');
+			//console.log(this.eventHandler);
+			console.log('Page transition: ');
+			console.log(this);
+			this._eventOutput.emit('TabReflow', message);
+		}.bind(this));
 		
         this.add(transformModifier).add(backgroundSurface);
     }
@@ -52,19 +64,44 @@ define(function(require, exports, module) {
 				
             }
         });
-
+		
         var titleModifier = new StateModifier({
         });
-
-        this.add(titleModifier).add(titleSurface);
+		
+		this.title = { modifier : titleModifier , surface : titleSurface };
+		
+		this.add(titleModifier).add(titleSurface);
 	}
 	
-
+	function _pageTransition(event) {
+		
+		/*for (var i in event) {
+			console.log("Element to print on click event: " + i);
+		}*/
+		
+		var message = { msg : 'TabReflow'}
+		this._eventOutput.emit('TabReflow', message);
+	}
+	
+	TabView.prototype.changeText = function(textToChange) {
+		
+		if (this.title != undefined && this.title.surface != undefined) {
+			this.title.surface.setContent(textToChange);
+		}
+		else {
+			console.log("Title is missing");
+		}
+	}
+	
     TabView.DEFAULT_OPTIONS = {
 		title : 'PlaceHolderTitle',
 		width : 50,
 		height : 50,
-		fontSize : 12
+		fontSize : 12,
+		transitionIn : {
+			curve : 'easeIn',
+			duration : 400
+		}
     };
 
     module.exports = TabView;

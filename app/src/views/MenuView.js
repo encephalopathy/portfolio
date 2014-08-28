@@ -4,9 +4,9 @@ define(function(require, exports, module) {
     var Surface = require('famous/core/Surface');
 	var ContainerSurface = require('famous/surfaces/ContainerSurface');
     var Transform = require('famous/core/Transform');
+	var EventHandler = require('famous/core/EventHandler');
     var StateModifier = require('famous/modifiers/StateModifier');
 	var TabView = require('views/TabView');
-
     /*
      * @name MenuView
      * @constructor
@@ -15,18 +15,21 @@ define(function(require, exports, module) {
 
     function MenuView() {
         View.apply(this, arguments);
+		_setListeners.call(this);
 		_createTabs.call(this);
     }
+	
+	function _setListeners() {
+		console.log('IS THIS AN EVENT LISTENER?');
+		console.log(this);
+		//this.eventHandler = new EventHandler();
+		//EventHandler.setOutputHandler(this.eventHandler);
+	}
 	
 	function _createTabs() {
 		var xOffset = 0;
 		var width = this.options.width;
 		var height = this.options.height;
-		
-		//console.log(this.options.tabData);
-		//console.log('width: ' + width);
-		//console.log('height: ' + height);
-		//console.log('topOffset: ' + this.options.topOffset);
 		var navigationBarContainer = new ContainerSurface();
 		
 		var windowWidth = window.innerWidth;
@@ -41,8 +44,15 @@ define(function(require, exports, module) {
 			var surface = new TabView({
 				title : this.options.tabData[i],
 				width : tabWidth,
-				height : 50
+				height : 50,
+				menuView : this
 			});
+			
+			//console.log('Regerstering surface Event handler');
+			//console.log(surface.eventHandler.name);
+			
+			this.subscribe(surface);
+			
 			
 			//console.log("surface text: " + this.options.tabData[i]);
 			//console.log('Adding a surface');
@@ -55,13 +65,21 @@ define(function(require, exports, module) {
 			
 			this.add(transformModifier).add(surface);
 		}
+		
+		this._eventInput.on('TabReflow', _resetTabs.bind(this));
+	}
+	
+	function _resetTabs(event) {
+		var menuOptions = this.options;
+		var tabNameClicked = event.tabName;
+		//for (var i = 0; i < )
 	}
 
     MenuView.prototype = Object.create(View.prototype);
     MenuView.prototype.constructor = MenuView;
 
     MenuView.DEFAULT_OPTIONS = {
-		tabData : ['Home', 'Games', 'Other Projects', 'Blog'],
+		tabData : ['Home', 'Games', 'Other Projects', 'Gallery', 'Blog'],
 		topOffset : 100,
 		width : 100,
 		height : 50

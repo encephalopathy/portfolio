@@ -21,7 +21,7 @@ define(function(require, exports, module) {
 		var backgroundSurface = new VideoSurface({
 			autoplay : 'true',
 			properties : {
-				loop : true ,
+				'loop' : 'true',
 				preload : 'auto'
 			}
 		});
@@ -29,8 +29,7 @@ define(function(require, exports, module) {
 		var backgroundFirstRender = new ImageSurface({
 			size : [ true, true ]
 		});
-		
-		//backgroundFirstRender.setContent('http://thomasstreet.com/first_frame.png');
+
 		
 		backgroundSurface.setContent('http://thomasstreet.com/TableMtn.mp4');
 		console.log('Creating background');
