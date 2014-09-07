@@ -20,8 +20,8 @@ define(function(require, exports, module) {
 	function _createBackground() {
 		var backgroundSurface = new VideoSurface({
 			autoplay : 'true',
+			loop : 'true',
 			properties : {
-				'loop' : 'true',
 				preload : 'auto'
 			}
 		});
@@ -39,7 +39,6 @@ define(function(require, exports, module) {
 		
 		this.add(transformModifier).add(backgroundSurface);
 		
-		//this.add(transformModifier).add(backgroundFirstRender);
 	}
 
     VideoView.prototype = Object.create(View.prototype);

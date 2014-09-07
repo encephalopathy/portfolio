@@ -45,7 +45,7 @@ define(function(require, exports, module) {
 				title : this.options.tabData[i],
 				width : tabWidth,
 				height : 50,
-				menuView : this
+				orderNumber : i
 			});
 			
 			//console.log('Regerstering surface Event handler');
@@ -72,6 +72,7 @@ define(function(require, exports, module) {
 	function _resetTabs(event) {
 		var menuOptions = this.options;
 		var tabNameClicked = event.tabName;
+		
 		//for (var i = 0; i < )
 	}
 

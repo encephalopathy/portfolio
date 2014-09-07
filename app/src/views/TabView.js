@@ -38,7 +38,6 @@ define(function(require, exports, module) {
         var transformModifier = new StateModifier({
             transform: Transform.behind
         });
-		var eventHandler = this;
 		backgroundSurface.on('click', function(message){
 			console.log('CLICKED ON BACKGROUND SURFACE');
 			//console.log('page transition');
@@ -66,7 +65,13 @@ define(function(require, exports, module) {
         });
 		
         var titleModifier = new StateModifier({
+        	transform : Transform.translate(0, 100, 0)
         });
+		
+		titleModifier.setTransform(
+			Transform.translate(0,0,0), 
+			{ duration : 1000 + (this.options.orderNumber * 200), curve : 'easeInOut' }
+		);
 		
 		this.title = { modifier : titleModifier , surface : titleSurface };
 		
@@ -99,9 +104,10 @@ define(function(require, exports, module) {
 		height : 50,
 		fontSize : 12,
 		transitionIn : {
-			curve : 'easeIn',
-			duration : 400
-		}
+			curve : 'easeInOut',
+			duration : 1000
+		},
+		orderNumber : 1
     };
 
     module.exports = TabView;
