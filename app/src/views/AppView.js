@@ -41,6 +41,8 @@ define(function(require, exports, module) {
 		});
 		
 		this.add(menuViewModifier).add(this.navBar);
+		
+		this._eventInput.subscribe(this.navBar._eventInput);
 	}
 	
 	function _createBackground() {
