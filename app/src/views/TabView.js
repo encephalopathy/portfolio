@@ -30,24 +30,26 @@ define(function(require, exports, module) {
             size: [this.options.width, this.options.height],
             properties: {
                 backgroundColor: 'black',
-                boxShadow: '0 0 1px black',
-				origin : [0.5, 0.5]
+                boxShadow: '0 0 1px black'
             }
         });
 
         var transformModifier = new StateModifier({
-            transform: Transform.behind
+            //transform: Transform.translate(-this.options.width / 4, -this.options.height / 4, 5),
         });
-		backgroundSurface.on('click', function(message){
+		backgroundSurface.on('click', function(message) {
 			console.log('CLICKED ON BACKGROUND SURFACE');
 			//console.log('page transition');
 			//console.log(this.eventHandler);
 			console.log('Page transition: ');
 			console.log(this);
+			message.tabName = this.options.title;
 			this._eventOutput.emit('TabReflow', message);
 		}.bind(this));
 		
         this.add(transformModifier).add(backgroundSurface);
+		
+		this.background = { modifier : transformModifier, surface : backgroundSurface }
     }
 	
 	function _createTitle() {
@@ -60,18 +62,22 @@ define(function(require, exports, module) {
                 fontSize: this.options.fontSize + 'px',
                 textTransform: 'uppercase',
                 pointerEvents : 'none',
-				
+				textAlign : 'center'
             }
         });
 		
+		//var midpointX = this.options.width / 2;
+		//var midpointY = this.options.height / 2;
         var titleModifier = new StateModifier({
-        	transform : Transform.translate(0, 100, 0)
+        	transform : Transform.translate(this.options.width / 2, 800, 6)
         });
 		
 		titleModifier.setTransform(
-			Transform.translate(0,0,0), 
+			Transform.translate(this.options.width / 2,this.options.height / 2,6), 
 			{ duration : 1000 + (this.options.orderNumber * 200), curve : 'easeInOut' }
 		);
+		
+		titleModifier.setAlign([0, 0]);
 		
 		this.title = { modifier : titleModifier , surface : titleSurface };
 		

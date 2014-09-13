@@ -42,7 +42,7 @@ define(function(require, exports, module) {
 		
 		this.add(menuViewModifier).add(this.navBar);
 		
-		this._eventInput.subscribe(this.navBar._eventInput);
+		
 	}
 	
 	function _createBackground() {
@@ -56,10 +56,7 @@ define(function(require, exports, module) {
 	}
 	
 	function _setListeners() {
-		this.eventHandler = new EventHandler();
-		this.navBar.on('click', function() { 
-			console.log('CLICKED');
-		}.bind(this));
+		this.subscribe(this.navBar);
 	}
 	
     AppView.DEFAULT_OPTIONS = {
