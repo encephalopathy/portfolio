@@ -37,7 +37,9 @@ define(function(require, exports, module) {
 			transform : Transform.translate(0, 0, -1)
 		});
 		
-		//transformModifier.setSize([1 , 1]);
+		transformModifier.setSize({
+			size : [1000, 500]
+		});
 		
 		this.add(transformModifier).add(backgroundSurface);
 		

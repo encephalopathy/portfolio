@@ -6,7 +6,7 @@ define(function(require, exports, module) {
     var Transform = require('famous/core/Transform');
 	var EventHandler = require('famous/core/EventHandler');
     var StateModifier = require('famous/modifiers/StateModifier');
-	var PageController = require('../controllers/PageController');
+	
 	var TabView = require('views/TabView');
     /*
      * @name MenuView
@@ -19,15 +19,11 @@ define(function(require, exports, module) {
 		_setListeners.call(this);
 		_createTabs.call(this);
 		_createHighlighter.call(this);
-		this.pageController = new PageController();
     }
 	
 	function _setListeners() {
 		
 		this._eventInput.on('TabReflow', _resetTabs.bind(this));
-		
-		console.log('IS THIS AN EVENT LISTENER?');
-		console.log(this);
 	}
 	
 	function _createTabs() {
@@ -37,7 +33,6 @@ define(function(require, exports, module) {
 		var navigationBarContainer = new ContainerSurface();
 		
 		var windowWidth = window.innerWidth;
-		console.log('windowWidth: ' + windowWidth);
 		
 		var tabWidth = this.options.width;
 		if (this.options.tabData.length > 0) {
@@ -55,18 +50,11 @@ define(function(require, exports, module) {
 				orderNumber : i
 			});
 			
-			//console.log('Regerstering surface Event handler');
-			//console.log(surface.eventHandler.name);
-			
 			this.subscribe(surface);
 			
-			
-			//console.log("surface text: " + this.options.tabData[i]);
-			//console.log('Adding a surface');
 			var transformModifier = new StateModifier({
 				transform : Transform.translate(xOffset, 0, 1)
 			});
-			
 			
 			xOffset += tabWidth;
 			
@@ -79,7 +67,7 @@ define(function(require, exports, module) {
 		var highlighterSurfaceBackground = new Surface({
 			size : [100, 25],
 			properties : {
-				backgroundColor : 'green'
+				backgroundColor : 'gray'
 			}
 		});
 		
@@ -95,7 +83,7 @@ define(function(require, exports, module) {
 		
 		var tabWidth = this.options.width / this.options.tabData.length
 		var xCoord = orderNumber * tabWidth + 100;
-		var heightOffset = this.options.height * 0.25;
+		var heightOffset = this.options.height * 0.1875;
 		stateModifier.setTransform(
 			Transform.translate(xCoord, heightOffset, 6)
 		);
@@ -112,10 +100,6 @@ define(function(require, exports, module) {
 			var options = this.tabs[i].getOptions('title');
 			if (tabNameClicked == options.title) {
 				var orderNumber = options.orderNumber;
-				console.log('computing new loc');
-				//console.log(orderNumber * this.options.width);
-				console.log('width: ' + options.width);
-				console.log('order Num: ' + orderNumber);
 				this.highlighterTransformModifier.setTransform(
 					Transform.translate(orderNumber * options.width + 100, options.height * 0.372, 6),
 					{ duration : 500 , curve : 'easeIn' }
@@ -130,7 +114,7 @@ define(function(require, exports, module) {
     MenuView.prototype.constructor = MenuView;
 
     MenuView.DEFAULT_OPTIONS = {
-		tabData : ['Home', 'Games', 'Other Projects', 'Gallery', 'Blog'],
+		tabData : ['Home', 'About Me', 'Games', 'Other Projects', 'Gallery', 'Blog'],
 		topOffset : 0,
 		width : 25,
 		height : 100

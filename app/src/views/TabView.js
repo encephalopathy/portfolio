@@ -66,8 +66,6 @@ define(function(require, exports, module) {
             }
         });
 		
-		//var midpointX = this.options.width / 2;
-		//var midpointY = this.options.height / 2;
         var titleModifier = new StateModifier({
         	transform : Transform.translate(this.options.width / 2, 800, 6)
         });
