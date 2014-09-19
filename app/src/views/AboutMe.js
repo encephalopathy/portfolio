@@ -106,7 +106,6 @@ define(function(require, exports, module) {
                 color: 'white',
                 fontFamily: 'AvenirNextCondensed-DemiBold',
                 fontSize: 12 + 'px',
-                textTransform: 'uppercase',
                 pointerEvents : 'none',
 				textAlign : 'center'
 			}
@@ -239,7 +238,7 @@ define(function(require, exports, module) {
 		height : 500,
 		title : 'Brent Arata',
 		avatarURL : 'content/images/brent_veeva.png',
-		bio : 'Born and raised in the south!',
+		bio : 'Hello! I am Brent! I work at Veeva Systems and work on a whole lot of random stuff.',
 		startingDepth : 750
     };
 

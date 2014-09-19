@@ -31,9 +31,6 @@ define(function(require, exports, module) {
 		_createNavBar.call(this);
 		_createBackground.call(this);
 		_setListeners.call(this);
-		
-		
-		
     }
 
     AppView.prototype = Object.create(View.prototype);

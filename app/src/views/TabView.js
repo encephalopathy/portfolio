@@ -26,23 +26,21 @@ define(function(require, exports, module) {
     TabView.prototype.constructor = TabView;
 	
     function _createBackground() {
+		console.log('Background being created for tabView: w: ' + this.options.offset + ", h: " + this.options.height);
         var backgroundSurface = new Surface({
-            size: [this.options.width, this.options.height],
+            size: [100, this.options.height],
             properties: {
                 backgroundColor: 'black',
-                boxShadow: '0 0 1px black'
             }
         });
 
         var transformModifier = new StateModifier({
-            //transform: Transform.translate(-this.options.width / 4, -this.options.height / 4, 5),
+			transform : Transform.translate(this.options.offset / 2 - this.options.offset / 6, 0, 2)
         });
+		
+		transformModifier.setOpacity(0);
+		
 		backgroundSurface.on('click', function(message) {
-			console.log('CLICKED ON BACKGROUND SURFACE');
-			//console.log('page transition');
-			//console.log(this.eventHandler);
-			console.log('Page transition: ');
-			console.log(this);
 			message.tabName = this.options.title;
 			this._eventOutput.emit('TabReflow', message);
 		}.bind(this));
@@ -67,15 +65,20 @@ define(function(require, exports, module) {
         });
 		
         var titleModifier = new StateModifier({
-        	transform : Transform.translate(this.options.width / 2, 800, 6)
+        	transform : Transform.translate(this.options.offset / 2, 800, 6)
         });
 		
 		titleModifier.setTransform(
-			Transform.translate(this.options.width / 2,this.options.height / 2,6), 
+			Transform.translate(this.options.offset / 2,this.options.height / 2,6), 
 			{ duration : 1000 + (this.options.orderNumber * 200), curve : 'easeInOut' }
 		);
 		
 		titleModifier.setAlign([0, 0]);
+		
+		titleSurface.on('click', function(message) {
+			message.tabName = this.options.title;
+			this._eventOutput.emit('TabReflow', message);
+		}.bind(this));
 		
 		this.title = { modifier : titleModifier , surface : titleSurface };
 		
@@ -83,10 +86,6 @@ define(function(require, exports, module) {
 	}
 	
 	function _pageTransition(event) {
-		
-		/*for (var i in event) {
-			console.log("Element to print on click event: " + i);
-		}*/
 		
 		var message = { msg : 'TabReflow'}
 		this._eventOutput.emit('TabReflow', message);
@@ -104,8 +103,9 @@ define(function(require, exports, module) {
 	
     TabView.DEFAULT_OPTIONS = {
 		title : 'PlaceHolderTitle',
-		width : 50,
+		offset : 50,
 		height : 50,
+		width : 100,
 		fontSize : 12,
 		transitionIn : {
 			curve : 'easeInOut',
