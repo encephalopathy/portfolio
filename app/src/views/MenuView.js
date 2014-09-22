@@ -134,22 +134,23 @@ define(function(require, exports, module) {
 		this.hamburgerTransformModifier = transformModifier;
 		this.visible = true;
 		
-		hamburgerMenuButton.on('click', function(event) {
-			
-			var numberOfTabs = this.tabs.length;
-			var maxFadeDuration = this.options.fadeDuration;
-			var fadeDelta = numberOfTabs != 0 ? maxFadeDuration / numberOfTabs : maxFadeDuration;
-			for (var i = numberOfTabs - 1; i > -1; --i) {
-				var tab = this.tabModifiers[i];
-				tab.setOpacity(this.visible ? 0 : 1, 
-					{ duration : fadeDelta * i, curve : 'easeInOut' })
-			}
-			this.blackBackgroundModifier.setOpacity(this.visible ? 0 : 1, 
-					{ duration : maxFadeDuration + 200, curve : 'easeInOut' });
-			this.highlighterTransformModifier.setOpacity(this.visible ? 0 : 1, 
-					{ duration : maxFadeDuration, curve : 'easeInOut' });
-			this.visible = !this.visible;
-		}.bind(this));
+		hamburgerMenuButton.on('click', _fadeNavigationBarInOut.bind(this));
+	}
+	
+	function _fadeNavigationBarInOut(event) {
+		var numberOfTabs = this.tabs.length;
+		var maxFadeDuration = this.options.fadeDuration;
+		var fadeDelta = numberOfTabs != 0 ? maxFadeDuration / numberOfTabs : maxFadeDuration;
+		for (var i = 0; i < numberOfTabs; ++i) {
+			var tab = this.tabModifiers[i];
+			tab.setOpacity(this.visible ? 0 : 1, 
+				{ duration : fadeDelta * i, curve : 'easeInOut' })
+		}
+		this.blackBackgroundModifier.setOpacity(this.visible ? 0 : 1, 
+				{ duration : maxFadeDuration + 200, curve : 'easeInOut' });
+		this.highlighterTransformModifier.setOpacity(this.visible ? 0 : 1, 
+				{ duration : maxFadeDuration, curve : 'easeInOut' });
+		this.visible = !this.visible;
 	}
 	
 	function _resetTabs(event) {
@@ -178,7 +179,7 @@ define(function(require, exports, module) {
 		tabWidth: 100,
 		width : window.innerWidth,
 		height : 100,
-		fadeDuration : 1000
+		fadeDuration : 2500
     };
 
     module.exports = MenuView;

@@ -91,7 +91,8 @@ define(function(require, exports, module) {
 		}
 		
 		if (oldTabName != undefined && oldTabName != tabName && this.pages[oldTabName].transitionOut != undefined) {
-			this.pages[oldTabName].transitionOut(tabName);
+			var orderNumber = this.pages[tabName].orderNumber == undefined ? 0 : this.pages[tabName].orderNumber;
+			this.pages[oldTabName].transitionOut(tabName, this.pages[tabName].orderNumber);
 		}
 		
 		if (this.pages[tabName].transitionIn != undefined) {

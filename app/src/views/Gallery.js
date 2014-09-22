@@ -34,38 +34,32 @@ define(function(require, exports, module) {
 				 4 : 'content/images/main_battle.png',
 				 5 : 'content/images/Red_Sea_take_1.png',
 				 6 : 'content/images/Red_Sea_take_2.png'
-		}
+		},
+		offScreenOffsetX : 1000,
+		offScreenOffsetY : 0,
+		orderNumber : 4
     };
 	
 	function _createBackground() {
 		
 		var description = this.options.images[0];
-		var imagePath = this.options.images[0];
 		var scrollView = new ScrollView();
 		
-		var image = new ImageSurface({
-			content : imagePath
-		});
-		
-		var imageModifier = new StateModifier({
-			size : [200, 200]
-		});
 		var scrollModifier = new StateModifier({
-			size : [200, 200]
-		});
-		
-		var scrollViewTransformModifier = new StateModifier({
+			size : [500, 500],
 			origin : [0.5, 0.5]
 		});
 		
-		var imageNode = new RenderNode(imageModifier);
-		imageNode.add(image);
+		var scrollViewTransformModifier = new StateModifier({
+			origin : [0.5, 0.5],
+			transform : Transform.translate(this.options.offScreenOffsetX, 0, 5)
+		}); 
 		
 		var scrollNode = new RenderNode(scrollModifier);
 		scrollNode.add(scrollView);
 		
 		var sequence = new SequentialLayout();
-		sequence.sequenceFrom([scrollNode, imageNode]);
+		sequence.sequenceFrom([scrollNode]);
 		
 		this.scrollView = scrollView;
 		
@@ -74,7 +68,7 @@ define(function(require, exports, module) {
 		var surfaces = [];
 		scrollView.sequenceFrom(surfaces);
 		
-		for (var i = 1; i < 7; ++i) {
+		for (var i = 0; i < 7; ++i) {
 			image = new ImageSurface({
 				content : this.options.images[i]
 			});
@@ -82,22 +76,8 @@ define(function(require, exports, module) {
 			image.pipe(scrollView);
 			surfaces.push(image);
 		}
-		/*this.scrollView = new Scrollview({
-			clipSize : [true, true],
-			margin : [500, 500],
-			friction : 0.78,
-			pageDamp : 0.58
-		});
 		
-		
-		
-		var scrollModifier = new StateModifier({
-			size : [200, 200]
-		});
-		
-		this.scrollModifier = scrollModifier;
-		
-		this.add(scrollModifier).add(this.scrollView);*/
+		this.scrollViewTransformModifier = scrollViewTransformModifier;
 	}
 	
 	function _setListeners() {
@@ -107,7 +87,7 @@ define(function(require, exports, module) {
 	}
 	
 	function _onTouchStart(event) {
-		
+		console.log(event);
 	}
 	
 	function _update(event) {
@@ -119,20 +99,31 @@ define(function(require, exports, module) {
 	}
 	
 	Gallery.prototype.transitionIn = function(event, tabName) {
-		var images = null;
-		/*if (event.data == undefined) {
-			images = this.options.data;
+		console.log('Transition In');
+		
+		
+		this.scrollViewTransformModifier.setTransform(
+			Transform.translate(0, 0, 5), {
+			duration : 1000, curve : 'easeInOut'
+		});
+	}
+	
+	Gallery.prototype.transitionOut = function(oldTabName, orderNumber) {
+		console.log('Transition Out');
+		if (this.options.orderNumber < orderNumber) {
+			
+			this.scrollViewTransformModifier.setTransform(
+				Transform.translate(-1000, 0, 5), {
+					duration : 1000, curve : 'easeInOut'
+				}
+			);
 		}
 		else {
-			images = event.data;
-			this.options.data = event.data;
+			this.scrollViewTransformModifier.setTransform(
+				Transform.translate(1000, 0, 5), {
+					duration : 1000, curve : 'easeInOut'
+			});
 		}
-		*/
-		
-		
-		
-		
-		
 	}
 
     module.exports = Gallery;

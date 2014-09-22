@@ -18,6 +18,7 @@ define(function(require, exports, module) {
 		_createTitle.call(this);
 		_createDescription.call(this);
 		_createAvatar.call(this);
+		this.direction = 1;
     }
 	
 	function _createBackground() {
@@ -30,7 +31,7 @@ define(function(require, exports, module) {
 		});
 		
 		var stateModifier = new StateModifier({
-			transform : Transform.translate(0, 1000, 5),
+			transform : Transform.translate(1000, 0, 5),
 			origin : [0.5, 0.5]
 		});
 		
@@ -39,7 +40,6 @@ define(function(require, exports, module) {
 		});
 		
 		this.add(stateModifier).add(this.fadeInOutModifier).add(backgroundSurface);
-		//this.add(stateModifier).add(backgoundSurface);
 		
 		this.backgroundSurface = backgroundSurface;
 		this.backgroundTransformModifier = stateModifier;
@@ -52,7 +52,7 @@ define(function(require, exports, module) {
 			properties : {
                 color: 'white',
                 fontFamily: 'AvenirNextCondensed-DemiBold',
-                fontSize: 12 + 'px',
+                fontSize: 54 + 'px',
                 textTransform: 'uppercase',
                 pointerEvents : 'none',
 				textAlign : 'center'
@@ -60,7 +60,7 @@ define(function(require, exports, module) {
 		});
 		
 		var transformModifier = new StateModifier({
-			transform : Transform.translate(0, 1000, 5),
+			transform : Transform.translate(1000, 0, 5),
 			origin : [0.5, 0.5]
 		});
 		
@@ -76,7 +76,7 @@ define(function(require, exports, module) {
 	
 	function _createAvatar() {
 		var avatar = new ImageSurface({
-			size : [100, 100],
+			size : [250, 250],
 			content : this.options.avatarURL,
 			properties : {
 				pointerEvents : 'none'
@@ -84,7 +84,7 @@ define(function(require, exports, module) {
 		});
 		
 		var avatarTransformModifier = new StateModifier({
-			transform : Transform.translate(0, this.options.startingDepth, 5),
+			transform : Transform.translate(-this.options.avatarOffsetX, -50, 5),
 			origin : [0.5, 0.5]
 		});
 		
@@ -100,19 +100,19 @@ define(function(require, exports, module) {
 	
 	function _createDescription() {
 		var title = new Surface({
-			size : [true, true],
+			size : [400, 400],
 			content : this.options.bio,
 			properties : {
                 color: 'white',
-                fontFamily: 'AvenirNextCondensed-DemiBold',
-                fontSize: 12 + 'px',
+                fontFamily: 'Avenir',
+                fontSize: 18 + 'px',
                 pointerEvents : 'none',
 				textAlign : 'center'
 			}
 		});
 		
 		var transformModifier = new StateModifier({
-			transform : Transform.translate(0, this.options.startingDepth, 5),
+			transform : Transform.translate(this.options.startingDepth, 600, 5),
 			origin : [0.5, 0.5]
 		});
 		
@@ -142,19 +142,19 @@ define(function(require, exports, module) {
 		);
 		
 		this.descriptionTransformModifier.setTransform(
-			Transform.translate(0, 50, 5),
+			Transform.translate(150, 70, 5),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		
 		this.titleTransformModifier.setTransform(
-			Transform.translate(0, -200, 6),
+			Transform.translate(125, -200, 6),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		
 		this.avatarTransformModifier.setTransform(
-			Transform.translate(0, -50, 5),
+			Transform.translate(this.options.avatarOffsetX, -50, 5),
 			{ duration : 1000 , curve : 'easeInOut' }
-		)
+		);
 		
 		
 		this.titleFadeInOutModifier.setOpacity(
@@ -183,24 +183,24 @@ define(function(require, exports, module) {
 		var hideLoc = this.options.startingDepth;
 		
 		this.backgroundTransformModifier.setTransform(
-			Transform.translate(0, hideLoc, 5),
+			Transform.translate(hideLoc * this.direction, 0, 5),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		
 		this.descriptionTransformModifier.setTransform(
-			Transform.translate(0, hideLoc, 5),
+			Transform.translate(hideLoc * this.direction, 70, 5),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		
 		this.titleTransformModifier.setTransform(
-			Transform.translate(0, hideLoc, 6),
+			Transform.translate(hideLoc * this.direction, -200, 6),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		
 		this.avatarTransformModifier.setTransform(
-			Transform.translate(0, hideLoc, 5),
+			Transform.translate(hideLoc * this.direction, -50, 5),
 			{ duration : 1000 , curve : 'easeInOut' }
-		)
+		);
 		
 		
 		this.titleFadeInOutModifier.setOpacity(
@@ -224,22 +224,33 @@ define(function(require, exports, module) {
 		)
 	}
 	
-	AboutMe.prototype.transitionOut = function(oldTabName) {
+	AboutMe.prototype.transitionOut = function(oldTabName, orderNumber) {
+		if (this.options.orderNumber < orderNumber) {
+			this.direction = 1;
+		}
+		else {
+			this.direction = -1;
+		}
+		
 		switch (oldTabName) {
 			case 'About Me':
 			break;
 			default:
 				_hideHome.call(this);
 		}
+		
 	}
 
     AboutMe.DEFAULT_OPTIONS = {
-		width : 500,
-		height : 500,
+		width : 750,
+		height : 600,
 		title : 'Brent Arata',
+		avatarOffsetX : -200,
+		avatarOffsetY : -100,
 		avatarURL : 'content/images/brent_veeva.png',
-		bio : 'Hello! I am Brent! I work at Veeva Systems and work on a whole lot of random stuff.',
-		startingDepth : 750
+		bio : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+		startingDepth : 750,
+		orderNumber : 1
     };
 
     module.exports = AboutMe;
