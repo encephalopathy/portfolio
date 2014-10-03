@@ -30,7 +30,7 @@ define(function(require, exports, module) {
 	
 	function _createBackground() {
 		var blackBackgroundSurface = new Surface({
-			size : [this.options.width, 50],
+			size : [this.options.width, 60],
 			properties : {
 				backgroundColor : 'black'
 			}
@@ -174,7 +174,7 @@ define(function(require, exports, module) {
     MenuView.prototype.constructor = MenuView;
 
     MenuView.DEFAULT_OPTIONS = {
-		tabData : ['Home', 'About Me', 'Games', 'Other Projects', 'Gallery', 'Blog'],
+		tabData : ['Home', 'About Me', 'Games', 'Gallery', 'Blog'],
 		topOffset : 0,
 		tabWidth: 100,
 		width : window.innerWidth,
