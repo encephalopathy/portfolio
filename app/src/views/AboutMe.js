@@ -136,23 +136,25 @@ define(function(require, exports, module) {
 			this.options.bio = data.bio;
 		}
 		
+		var centerX = window.innerWidth * 0.5;
+		var centerY = window.innerHeight * 0.5
 		this.backgroundTransformModifier.setTransform(
-			Transform.translate(0, 0, 5),
+			Transform.translate(centerX, centerY, 5),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		
 		this.descriptionTransformModifier.setTransform(
-			Transform.translate(150, 70, 5),
+			Transform.translate(centerX + 150, centerY + 70, 5),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		
 		this.titleTransformModifier.setTransform(
-			Transform.translate(125, -200, 6),
+			Transform.translate(ccenterX + 125, centerY - 200, 6),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		
 		this.avatarTransformModifier.setTransform(
-			Transform.translate(this.options.avatarOffsetX, -50, 5),
+			Transform.translate(this.options.avatarOffsetX + centerX, centerY + -50, 5),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		

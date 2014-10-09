@@ -33,7 +33,7 @@ define(function(require, exports, module) {
 		
 		backgroundSurface.setContent('http://thomasstreet.com/TableMtn.mp4');
 		/*backgroundSurface.setOptions({
-			
+			loop : 'true'
 		})*/
 		console.log('Creating background');
 		var transformModifier = new StateModifier({

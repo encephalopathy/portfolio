@@ -10,6 +10,7 @@ define(function(require, exports, module) {
 	var SequentialLayout = require('famous/views/SequentialLayout');
 	var Draggable = require('famous/modifiers/Draggable');
 	var Timer = require('famous/utilities/Timer');
+	var MathUtility = require('../MathUtility');
     /*
      * @name Gallery
      * @constructor
@@ -102,8 +103,6 @@ define(function(require, exports, module) {
 			renderNode.add(modifier).add(image);
 			image.pipe(renderNode);
 			
-			//this.add(imageTransformModifier).add(image);
-			
 			image.pipe(scrollView);
 			surfaces.push(renderNode);
 			surfaceModifiers.push(modifier);
@@ -111,14 +110,6 @@ define(function(require, exports, module) {
 		
 		this.imageModifiers = surfaceModifiers;
 		this.scrollViewTransformModifier = scrollViewTransformModifier;
-		
-		/*for (var i = 0; i < surfaceModifiers.length; ++i) {
-			var size = surfaceModifiers[i].getSize();
-			var locationVec = Transform.getTranslate(surfaceModifiers[i].getTransform());
-			if (locationVec.x < 100) {
-				
-			}
-		}*/
 	}
 	
 	function _createBackground() {
@@ -151,7 +142,7 @@ define(function(require, exports, module) {
 	}
 	
 	function _update(event) {
-		console.log(event);
+		//console.log(event);
 		var width = window.innerWidth;
 		var height = window.innerHeight;
 		var dir = event.delta < 0 ? -1 : 1;
@@ -161,7 +152,7 @@ define(function(require, exports, module) {
 			var transformProperties = Transform.interpret(transformMatrix);
 			var rotation = transformProperties.rotate;
 			
-			console.log('transformProperties: ' + transformProperties.rotation);
+			//console.log('transformProperties: ' + transformProperties.rotate);
 			if (rotation[0] < Math.PI / 6) {
 				transformMatrix = Transform.multiply(Transform.rotateX(Math.PI / 64), transformMatrix);
 			}
@@ -175,25 +166,35 @@ define(function(require, exports, module) {
 	function _scrollViewStablize(event) {
 		var transformModifiers = this.imageModifiers;
 		for (var i = 0; i < transformModifiers.length; ++i) {
-			transformModifiers[i].setTransform()
+			var currentTransformMatrix = transformModifiers[i].getTransform();
+			var transformProperties = Transform.interpret(currentTransformMatrix)
+			var rotation = transformProperties.rotate;
+			
+			if (rotation[0] > 0) {
+				currentTransformMatrix = Transform.multiply(-Transform.rotateX(Math.PI / 64), currentTransformMatrix);
+				transformModifiers[i].setTransform(currentTransformMatrix);
+			}
+			
+			//TODO: Lerp back to the identity
 		}
 	}
 	
 	function _onTouchEnd(event) {
-		//Timer.setInterval(_scrollViewStablize, 1000)
+		console.log(event);
+		Timer.setInterval(_scrollViewStablize.bind(this), 800)
 	}
 	
 	Gallery.prototype.transitionIn = function(event, tabName) {
 		console.log('Transition In');
-		
-		
+		var centerX = window.innerWidth * 0.5;
+		var centerY = window.innerHeight * 0.5;
 		this.scrollViewTransformModifier.setTransform(
-			Transform.translate(0, 0, -3), {
+			Transform.translate(centerX, centerY, -3), {
 			duration : 1000, curve : 'easeInOut'
 		});
 		
 		this.backgroundModifier.setTransform(
-			Transform.translate(0, 0, -5), {
+			Transform.translate(centerX, centerY, -5), {
 				duration : 1000, curve : 'easeInOut'
 			}
 		)

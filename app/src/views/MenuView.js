@@ -72,7 +72,7 @@ define(function(require, exports, module) {
 			});
 			
 			this.subscribe(surface);
-			
+			console.log('xOffset for ' + this.options.tabData[i].title + " is " + xOffset)
 			var transformModifier = new StateModifier({
 				transform : Transform.translate(xOffset, 0, 1)
 			});
@@ -157,7 +157,7 @@ define(function(require, exports, module) {
 		var menuOptions = this.options;
 		var tabNameClicked = event.tabName;
 		for (var i = 0; this.tabs.length; ++i) {
-			var options = this.tabs[i].getOptions('title');
+			var options = this.tabs[i].getOptions();
 			if (tabNameClicked == options.title) {
 				var orderNumber = options.orderNumber;
 				this.highlighterTransformModifier.setTransform(
