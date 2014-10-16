@@ -44,7 +44,10 @@ define(function(require, exports, module) {
 		boxWidth : 500,
 		boxHeight : 2000,
 		orderNumber : 4,
-		stabilzationTime: 100
+		stabilzationTime: 100,
+		scrolling : false,
+		intervalSet : false,
+		doneRotating : true
     };
 	
 	function _createScrollView() {
@@ -63,12 +66,6 @@ define(function(require, exports, module) {
 			size : [250, 250],
 			transform : Transform.translate(this.options.offScreenOffsetX, 0, -3)
 		}); 
-		
-		//var scrollNode = new RenderNode(scrollModifier);
-		//scrollNode.add(scrollView);
-		
-		//var sequence = new SequentialLayout();
-		//sequence.sequenceFrom([scrollNode]);
 		
 		this.scrollView = scrollView;
 		this.add(scrollViewTransformModifier).add(scrollView);
@@ -137,12 +134,11 @@ define(function(require, exports, module) {
 	}
 	
 	function _onTouchStart(event) {
-		
-		
+		Timer.clear(_scrollViewStablize);
+		this.doneRotating = true
 	}
 	
 	function _update(event) {
-		//console.log(event);
 		var width = window.innerWidth;
 		var height = window.innerHeight;
 		var dir = event.delta < 0 ? -1 : 1;
@@ -151,37 +147,57 @@ define(function(require, exports, module) {
 			var transformMatrix = modifiers[i].getTransform();
 			var transformProperties = Transform.interpret(transformMatrix);
 			var rotation = transformProperties.rotate;
-			
-			//console.log('transformProperties: ' + transformProperties.rotate);
 			if (rotation[0] < Math.PI / 6) {
 				transformMatrix = Transform.multiply(Transform.rotateX(Math.PI / 64), transformMatrix);
 			}
 			transformMatrix = Transform.multiply(Transform.translate(0, 0.95, 0), transformMatrix);
 			modifiers[i].setTransform(transformMatrix);
 		}
-		
-		//this.scrollViewTransformModifier.setTransform(Transform.rotateZ(Math.Pi/6), {duration : 300});
 	}
 	
 	function _scrollViewStablize(event) {
 		var transformModifiers = this.imageModifiers;
-		for (var i = 0; i < transformModifiers.length; ++i) {
-			var currentTransformMatrix = transformModifiers[i].getTransform();
-			var transformProperties = Transform.interpret(currentTransformMatrix)
-			var rotation = transformProperties.rotate;
-			
-			if (rotation[0] > 0) {
-				currentTransformMatrix = Transform.multiply(-Transform.rotateX(Math.PI / 64), currentTransformMatrix);
-				transformModifiers[i].setTransform(currentTransformMatrix);
-			}
+		
+		
+		if (!this.doneRotating) {
+			var notDoneRotation = false;
+			for (var i = 0; i < transformModifiers.length; ++i) {
+				var currentTransformMatrix = transformModifiers[i].getTransform();
+				var transformProperties = Transform.interpret(currentTransformMatrix)
+				var rotation = transformProperties.rotate;
+				
+				if (rotation[0] > 0) {
+					var radToRotate = (Math.PI / 120) * ( 1 / i );
+					if (rotation[0] <  radToRotate) {
+						radToRotate = rotation[0];
+					}
+					notDoneRotation = true;
+					currentTransformMatrix = Transform.multiply(Transform.rotateX(-radToRotate), currentTransformMatrix);
+					var afterTransformMatrix = Transform.interpret(currentTransformMatrix);
+					rotation = afterTransformMatrix.rotate;
+					transformModifiers[i].setTransform(currentTransformMatrix);
+				}
 			
 			//TODO: Lerp back to the identity
+			}
+			
+			
+			if (notDoneRotation) {
+				Timer.clear(_scrollViewStablize);
+				this.doneRotatiing = true;
+			}
+			console.log('doneRotating: ' + this.doneRotating);
+			console.log('notDoneRotating: ' + notDoneRotation);
 		}
 	}
 	
 	function _onTouchEnd(event) {
 		console.log(event);
-		Timer.setInterval(_scrollViewStablize.bind(this), 800)
+		this.doneRotating = false;
+		if (!this.intervalSet) {
+			Timer.every(_scrollViewStablize.bind(this), 10);
+			this.intervalSet = true;	
+		}
 	}
 	
 	Gallery.prototype.transitionIn = function(event, tabName) {
@@ -202,15 +218,18 @@ define(function(require, exports, module) {
 	
 	Gallery.prototype.transitionOut = function(oldTabName, orderNumber) {
 		console.log('Transition Out');
+		
+		var centerX = window.innerWidth * 0.5;
+		var centerY = window.innerHeight * 0.5;
 		if (this.options.orderNumber < orderNumber) {
 			
 			this.scrollViewTransformModifier.setTransform(
-				Transform.translate(-this.options.offScreenOffsetX, 0, -5), {
+				Transform.translate(centerX -this.options.offScreenOffsetX, centerY, -5), {
 					duration : 1000, curve : 'easeInOut'
 				}
 			);
 			
-			this.backgroundModifier.setTransform(Transform.translate(-this.options.offScreenOffsetX, 0, -5), {
+			this.backgroundModifier.setTransform(Transform.translate(centerX -this.options.offScreenOffsetX, centerY, -5), {
 					duration : 1000, curve : 'easeInOut'
 				})
 		}
