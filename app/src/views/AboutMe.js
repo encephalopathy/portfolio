@@ -22,6 +22,8 @@ define(function(require, exports, module) {
     }
 	
 	function _createBackground() {
+		var centerX = window.innerWidth * 0.5
+		var centerY = window.innerHeight * 0.5
 		var backgroundSurface = new Surface({
 			size : [this.options.width, this.options.height],
 			properties : {
@@ -31,7 +33,7 @@ define(function(require, exports, module) {
 		});
 		
 		var stateModifier = new StateModifier({
-			transform : Transform.translate(1000, 0, 5),
+			transform : Transform.translate(1000 + centerX, centerY, 5),
 			origin : [0.5, 0.5]
 		});
 		
@@ -46,6 +48,8 @@ define(function(require, exports, module) {
 	}
 	
 	function _createTitle() {
+		var centerX = window.innerWidth * 0.5
+		var centerY = window.innerHeight * 0.5
 		var title = new Surface({
 			size : [true, true],
 			content : this.options.title,
@@ -75,6 +79,8 @@ define(function(require, exports, module) {
 	}
 	
 	function _createAvatar() {
+		var centerX = window.innerWidth * 0.5
+		var centerY = window.innerHeight * 0.5
 		var avatar = new ImageSurface({
 			size : [250, 250],
 			content : this.options.avatarURL,
@@ -99,6 +105,10 @@ define(function(require, exports, module) {
 	}
 	
 	function _createDescription() {
+		
+		
+		var centerX = window.innerWidth * 0.5
+		var centerY = window.innerHeight * 0.5
 		var title = new Surface({
 			size : [400, 400],
 			content : this.options.bio,
@@ -112,7 +122,7 @@ define(function(require, exports, module) {
 		});
 		
 		var transformModifier = new StateModifier({
-			transform : Transform.translate(this.options.startingDepth, 600, 5),
+			transform : Transform.translate(this.options.startingDepth , 600, 5),
 			origin : [0.5, 0.5]
 		});
 		
@@ -136,7 +146,7 @@ define(function(require, exports, module) {
 			this.options.bio = data.bio;
 		}
 		
-		var centerX = window.innerWidth * 0.5;
+		var centerX = window.innerWidth * 0.5
 		var centerY = window.innerHeight * 0.5
 		this.backgroundTransformModifier.setTransform(
 			Transform.translate(centerX, centerY, 5),
@@ -149,7 +159,7 @@ define(function(require, exports, module) {
 		);
 		
 		this.titleTransformModifier.setTransform(
-			Transform.translate(ccenterX + 125, centerY - 200, 6),
+			Transform.translate(centerX + 125, centerY - 200, 6),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		
@@ -182,25 +192,28 @@ define(function(require, exports, module) {
 	}
 	
 	function _hideHome() {
-		var hideLoc = this.options.startingDepth;
+		var centerX = window.innerWidth * 0.5
+		var centerY = window.innerHeight * 0.5
+		var hideLoc = this.options.startingDepth + centerY;
+		
 		
 		this.backgroundTransformModifier.setTransform(
-			Transform.translate(hideLoc * this.direction, 0, 5),
+			Transform.translate(hideLoc * this.direction + centerX, centerY, 5),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		
 		this.descriptionTransformModifier.setTransform(
-			Transform.translate(hideLoc * this.direction, 70, 5),
+			Transform.translate(hideLoc * this.direction + centerX, 70 + centerY, 5),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		
 		this.titleTransformModifier.setTransform(
-			Transform.translate(hideLoc * this.direction, -200, 6),
+			Transform.translate(hideLoc * this.direction + centerX, -200 + centerY, 6),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		
 		this.avatarTransformModifier.setTransform(
-			Transform.translate(hideLoc * this.direction, -50, 5),
+			Transform.translate(hideLoc * this.direction + centerX, -50 + centerY, 5),
 			{ duration : 1000 , curve : 'easeInOut' }
 		);
 		

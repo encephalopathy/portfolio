@@ -69,7 +69,6 @@ define(function(require, exports, module) {
 		
 		this.scrollView = scrollView;
 		this.add(scrollViewTransformModifier).add(scrollView);
-		//this.add(scrollViewTransformModifier).add(sequence);
 		
 		var surfaces = [];
 		var surfaceModifiers = [];
@@ -167,15 +166,26 @@ define(function(require, exports, module) {
 				var rotation = transformProperties.rotate;
 				
 				if (rotation[0] > 0) {
-					var radToRotate = (Math.PI / 120) * ( 1 / i );
+					var radToRotate = (Math.PI / 120) * ( 1 / (i + 1) );
 					if (rotation[0] <  radToRotate) {
 						radToRotate = rotation[0];
+						//Loss of precision, clamp to zero if our rotation gets to low.
+						if (radToRotate = 0.000000000000001) {
+							rodToRotate = 0;
+							
+						}
 					}
 					notDoneRotation = true;
 					currentTransformMatrix = Transform.multiply(Transform.rotateX(-radToRotate), currentTransformMatrix);
+					
 					var afterTransformMatrix = Transform.interpret(currentTransformMatrix);
-					rotation = afterTransformMatrix.rotate;
+					var translation = afterTransformMatrix.translate;
+					currentTransformMatrix = Transform.multiply(Transform.translate(0, 0, 0), currentTransformMatrix);
 					transformModifiers[i].setTransform(currentTransformMatrix);
+					if (translation[2] < -5) {
+						transformModifiers[i].setTransform(Transform.translate(translation[0], translation[1] - 0.95, 0));
+					}
+					console.log(translation)
 				}
 			
 			//TODO: Lerp back to the identity
@@ -186,16 +196,15 @@ define(function(require, exports, module) {
 				Timer.clear(_scrollViewStablize);
 				this.doneRotatiing = true;
 			}
-			console.log('doneRotating: ' + this.doneRotating);
-			console.log('notDoneRotating: ' + notDoneRotation);
+			
 		}
 	}
 	
 	function _onTouchEnd(event) {
-		console.log(event);
+		//console.log(event);
 		this.doneRotating = false;
 		if (!this.intervalSet) {
-			Timer.every(_scrollViewStablize.bind(this), 10);
+			Timer.every(_scrollViewStablize.bind(this), 0.5);
 			this.intervalSet = true;	
 		}
 	}
@@ -231,7 +240,7 @@ define(function(require, exports, module) {
 			
 			this.backgroundModifier.setTransform(Transform.translate(centerX -this.options.offScreenOffsetX, centerY, -5), {
 					duration : 1000, curve : 'easeInOut'
-				})
+			})
 		}
 		else {
 			this.scrollViewTransformModifier.setTransform(
