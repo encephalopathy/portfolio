@@ -4,12 +4,16 @@ define(function(require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
+	var Lightbox = require('famous/views/Lightbox')
 	var ScrollView = require('famous/views/Scrollview');
 	var ImageSurface = require('famous/surfaces/ImageSurface');
 	var RenderNode = require('famous/core/RenderNode');
 	var SequentialLayout = require('famous/views/SequentialLayout');
+	var GridLayout = require('famous/views/GridLayout');
+	var Modifier = require('famous/core/Modifier');
 	var Draggable = require('famous/modifiers/Draggable');
 	var Timer = require('famous/utilities/Timer');
+	var Engine = require('famous/core/Engine');
 	var MathUtility = require('../MathUtility');
     /*
      * @name Gallery
@@ -19,10 +23,12 @@ define(function(require, exports, module) {
 
     function Gallery() {
         View.apply(this, arguments);
-		this.surfacesInView = {};
-		_createBackground.call(this);
-		_createScrollView.call(this);
-		_setListeners.call(this);
+		_createLightBox.call(this);
+		_createGrid.call(this);
+		
+		//_createBackground.call(this);
+		//_createScrollView.call(this);
+		//_setListeners.call(this);
     }
 
     Gallery.prototype = Object.create(View.prototype);
@@ -41,14 +47,86 @@ define(function(require, exports, module) {
 		},
 		offScreenOffsetX : 1500,
 		offScreenOffsetY : 0,
-		boxWidth : 500,
-		boxHeight : 2000,
+		size : [ window.innerWidth, window.innerHeight],
 		orderNumber : 4,
 		stabilzationTime: 100,
 		scrolling : false,
 		intervalSet : false,
-		doneRotating : true
+		doneRotating : true,
     };
+	
+	function _createGrid() {
+		var lightBox = this.lightBox;
+		var scrollViews = [];
+		this.imageNodes = new Array();
+		var scrollview = new ScrollView();
+		scrollview.sequenceFrom(scrollViews);
+		
+		var gridCells = [];
+		
+		var grid = new GridLayout();
+		grid.sequenceFrom(gridCells);
+		
+		grid.mod = new Modifier();
+		
+		var cellCount     = 24;
+		var cellMinWidth  = 200.0;
+		
+		var size        = this.options.size;
+		grid.mod.sizeFrom(function() {
+
+		var cellsX      = Math.floor(size[0] / cellMinWidth);
+		var cellsY      = Math.ceil(cellCount * 1.0  / cellsX);
+		var cellHeight  = size[0] * 1.0 / cellsX;
+
+		grid.setOptions({dimensions:[cellsX,cellsY]});
+		  return [undefined,cellsY*cellHeight];
+		});
+
+		grid.node = new RenderNode();
+		grid.node.add(grid.mod).add(grid);
+
+
+		for (var i = 0; i < cellCount; i++) {
+		  var surface = new ImageSurface({
+		    size:[undefined,undefined],
+			content : this.options.images[i],
+		    properties: {
+		      backgroundColor:'hsl('+(i*360/12)+',75%,50%)'
+		    }
+		  });
+		  this.imageNodes.push(surface);
+		  gridCells.push(surface);
+		  surface.pipe(scrollview);
+		  surface.on('click', function() {
+			  if (this.shown == undefined || !this.shown) {
+			 	 this.shown = true;
+				 lightBox.show(this);
+		  	  }
+			  else {
+				  this.shown = false;
+				  lightBox.hide(this);
+			  }
+		  });
+	  	}
+	  
+	  scrollViews.push(grid.node);
+	  this.add(scrollview);
+	}
+	
+	function _createLightBox() {
+		var lightBox = new Lightbox({
+			inOpacity : 1,
+			inTransition : {
+				duration : 250,
+				curve : 'linear'
+			},
+			overlap : true
+		});
+		this.add(lightBox);
+		this.lightBox = lightBox;
+		
+	}
 	
 	function _createScrollView() {
 		
@@ -213,7 +291,7 @@ define(function(require, exports, module) {
 		console.log('Transition In');
 		var centerX = window.innerWidth * 0.5;
 		var centerY = window.innerHeight * 0.5;
-		this.scrollViewTransformModifier.setTransform(
+		/*this.scrollViewTransformModifier.setTransform(
 			Transform.translate(centerX, centerY, -3), {
 			duration : 1000, curve : 'easeInOut'
 		});
@@ -222,7 +300,7 @@ define(function(require, exports, module) {
 			Transform.translate(centerX, centerY, -5), {
 				duration : 1000, curve : 'easeInOut'
 			}
-		)
+		)*/
 	}
 	
 	Gallery.prototype.transitionOut = function(oldTabName, orderNumber) {
