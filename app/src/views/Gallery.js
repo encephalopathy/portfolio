@@ -3,6 +3,7 @@ define(function(require, exports, module) {
     var View = require('famous/core/View');
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
+	var Matrix = require('famous/math/Matrix');
     var StateModifier = require('famous/modifiers/StateModifier');
 	var Lightbox = require('famous/views/Lightbox')
 	var ScrollView = require('famous/views/Scrollview');
@@ -60,6 +61,7 @@ define(function(require, exports, module) {
 		var scrollViews = [];
 		this.imageNodes = new Array();
 		var scrollview = new ScrollView();
+		var contextSize = this.options.size;
 		scrollview.sequenceFrom(scrollViews);
 		
 		var gridCells = [];
@@ -95,12 +97,31 @@ define(function(require, exports, module) {
 		      backgroundColor:'hsl('+(i*360/12)+',75%,50%)'
 		    }
 		  });
+		  surface.surfaceIndex = i;
 		  this.imageNodes.push(surface);
 		  gridCells.push(surface);
+		  
 		  surface.pipe(scrollview);
+		  ///TODO: Have this work with good aspect ratios and
+		  var viewOptions = this.options.size;
 		  surface.on('click', function() {
 			  if (this.shown == undefined || !this.shown) {
-			 	 this.shown = true;
+				  var modifiers = grid._modifiers;
+				  var transform = modifiers[this.surfaceIndex].getTransform();
+				  var translate = Transform.interpret(transform).translate;
+				  var size = modifiers[this.surfaceIndex].getSize();
+				  var center = [translate[0] + Math.round(size[0] / 2), translate[1] + Math.round(size[1] / 2)];
+				  console.log(center);
+				  console.log('window dims document model: ' + [window.innerWidth, window.innerHeight]);
+				  console.log('window dims famo.us model: ' + viewOptions);
+				  console.log('window scale factor: ' + [viewOptions[0] / window.innerWidth, viewOptions[1] / window.innerHeight])
+				  center[0] = center[0] - window.innerWidth / 2;
+				  center[1] = center[1] - window.innerHeight / 2;
+				  var scaleFactor = [size[0] / window.innerWidth, size[1] / window.innerHeight];
+				  var scaleAmount = Transform.scale(scaleFactor[0], scaleFactor[1], 1);
+				  lightBox.options.inTransform = Transform.multiply(Transform.translate(center[0], center[1], 1), scaleAmount);
+				  lightBox.options.outTransform = lightBox.options.inTransform;
+				 this.shown = true;
 				 lightBox.show(this);
 		  	  }
 			  else {
@@ -116,16 +137,14 @@ define(function(require, exports, module) {
 	
 	function _createLightBox() {
 		var lightBox = new Lightbox({
-			inOpacity : 1,
-			inTransition : {
-				duration : 250,
-				curve : 'linear'
-			},
+			inOpacity : 0,
+			outOpacity : 0,
 			overlap : true
 		});
-		this.add(lightBox);
-		this.lightBox = lightBox;
 		
+		lightBox.mod = new StateModifier();
+		this.add(lightBox.mod).add(lightBox);
+		this.lightBox = lightBox;
 	}
 	
 	function _createScrollView() {
