@@ -15,6 +15,7 @@ define(function(require, exports, module) {
 	var Draggable = require('famous/modifiers/Draggable');
 	var Timer = require('famous/utilities/Timer');
 	var Engine = require('famous/core/Engine');
+	var Scroller = require('famous/views/Scroller');
 	var MathUtility = require('../MathUtility');
     /*
      * @name Gallery
@@ -29,7 +30,7 @@ define(function(require, exports, module) {
 		
 		//_createBackground.call(this);
 		//_createScrollView.call(this);
-		//_setListeners.call(this);
+		_setListeners.call(this);
     }
 
     Gallery.prototype = Object.create(View.prototype);
@@ -63,6 +64,7 @@ define(function(require, exports, module) {
 		var scrollview = new ScrollView();
 		var contextSize = this.options.size;
 		scrollview.sequenceFrom(scrollViews);
+		scrollview.offsetY = 0;
 		
 		var gridCells = [];
 		
@@ -70,7 +72,7 @@ define(function(require, exports, module) {
 		grid.sequenceFrom(gridCells);
 		
 		grid.mod = new Modifier();
-		
+		this.offsetY = 0;
 		var cellCount     = 24;
 		var cellMinWidth  = 200.0;
 		
@@ -103,7 +105,7 @@ define(function(require, exports, module) {
 		  
 		  surface.pipe(scrollview);
 		  ///TODO: Have this work with good aspect ratios and
-		  var viewOptions = this.options.size;
+		  var viewTemp = this;
 		  surface.on('click', function() {
 			  if (this.shown == undefined || !this.shown) {
 				  var modifiers = grid._modifiers;
@@ -111,21 +113,24 @@ define(function(require, exports, module) {
 				  var translate = Transform.interpret(transform).translate;
 				  var size = modifiers[this.surfaceIndex].getSize();
 				  var center = [translate[0] + Math.round(size[0] / 2), translate[1] + Math.round(size[1] / 2)];
-				  console.log(center);
-				  console.log('window dims document model: ' + [window.innerWidth, window.innerHeight]);
-				  console.log('window dims famo.us model: ' + viewOptions);
-				  console.log('window scale factor: ' + [viewOptions[0] / window.innerWidth, viewOptions[1] / window.innerHeight])
 				  center[0] = center[0] - window.innerWidth / 2;
 				  center[1] = center[1] - window.innerHeight / 2;
+				  var finalTransform = null;
 				  var scaleFactor = [size[0] / window.innerWidth, size[1] / window.innerHeight];
 				  var scaleAmount = Transform.scale(scaleFactor[0], scaleFactor[1], 1);
-				  lightBox.options.inTransform = Transform.multiply(Transform.translate(center[0], center[1], 1), scaleAmount);
+				  finalTransform = Transform.multiply(Transform.translate(center[0], center[1] + this.offsetY, 1), scaleAmount);
+				  //finalTransform = Transform.multiply(Transform.translate(0, viewTemp.offsetY, 1), finalTransform);
+				  lightBox.options.inTransform = finalTransform;
 				  lightBox.options.outTransform = lightBox.options.inTransform;
-				 this.shown = true;
-				 lightBox.show(this);
+				  this.shown = true;
+				  viewTemp.disableScrollView = true;
+				  lightBox.showing = true;
+				  lightBox.show(this);
 		  	  }
 			  else {
 				  this.shown = false;
+				  viewTemp.disableScrollView = false;
+				  lightBox.showing = false;
 				  lightBox.hide(this);
 			  }
 		  });
@@ -133,6 +138,7 @@ define(function(require, exports, module) {
 	  
 	  scrollViews.push(grid.node);
 	  this.add(scrollview);
+	  this.scrollView = scrollview;
 	}
 	
 	function _createLightBox() {
@@ -142,9 +148,14 @@ define(function(require, exports, module) {
 			overlap : true
 		});
 		
-		lightBox.mod = new StateModifier();
-		this.add(lightBox.mod).add(lightBox);
+		lightBox.mod = new StateModifier({
+			origin : [0.5,0.5]
+		});
+		
+		//lightBox.mod.add(lightBox);
+		//this.lightBox = lightBox;
 		this.lightBox = lightBox;
+		this.add(lightBox.mod).add(lightBox);
 	}
 	
 	function _createScrollView() {
@@ -206,7 +217,7 @@ define(function(require, exports, module) {
 	}
 	
 	function _createBackground() {
-		var blackBackground = new Surface({
+		/*var blackBackground = new Surface({
 			size : [window.innerWidth, window.innerHeight],
 			properties : {
 				backgroundColor : 'black'
@@ -220,7 +231,7 @@ define(function(require, exports, module) {
 		
 		this.add(transformModifier).add(blackBackground);
 		
-		this.backgroundModifier = transformModifier;
+		this.backgroundModifier = transformModifier;*/
 	}
 	
 	function _setListeners() {
@@ -230,80 +241,46 @@ define(function(require, exports, module) {
 	}
 	
 	function _onTouchStart(event) {
-		Timer.clear(_scrollViewStablize);
-		this.doneRotating = true
+		//this.scrollView.getPosition()
+		console.log('On Touch start event')
+		console.log(event);
 	}
 	
 	function _update(event) {
-		var width = window.innerWidth;
-		var height = window.innerHeight;
-		var dir = event.delta < 0 ? -1 : 1;
-		var modifiers = this.imageModifiers;
-		for (var i = 0; i < modifiers.length; ++i) {
-			var transformMatrix = modifiers[i].getTransform();
-			var transformProperties = Transform.interpret(transformMatrix);
-			var rotation = transformProperties.rotate;
-			if (rotation[0] < Math.PI / 6) {
-				transformMatrix = Transform.multiply(Transform.rotateX(Math.PI / 64), transformMatrix);
-			}
-			transformMatrix = Transform.multiply(Transform.translate(0, 0.95, 0), transformMatrix);
-			modifiers[i].setTransform(transformMatrix);
+		console.log(event);
+		
+		var lightBoxTransformContainer = this.lightBox.options.__proto__;
+		var lightBox = this.lightBox;
+		var lightBoxTransformInfo;
+		//Show the lightbox and translate the lightbox down by w/e units the user scrolls by.
+		if (lightBox.showing) {
+			lightBoxTransformInfo = Transform.interpret(lightBoxTransformContainer.showTransform);
+			var showTranslation = lightBoxTransformInfo.translate;
+			console.log('Moving visible lightbox');
+			console.log('Scale info: ' + lightBoxTransformInfo.scale);
+			console.log('Rotation info: ' + lightBoxTransformInfo.rotate);
+			console.log('TranslationL ' + showTranslation);
+			lightBoxTransformContainer.showTransform = Transform.translate(Transform.translate(showTranslation[0], showTranslation[1] + this.position, showTranslation[2]));
+		}
+		else {
+			lightBoxTransformInfo = Transform.interpret(lightBoxTransformContainer.inTransform);
+			var scale = lightBoxTransformInfo.scale;
+			var rotate = lightBoxTransformInfo.rotate;
+			var lightBoxTranslateInfo = lightBoxTransformInfo.translate;
+			
+			console.log('Moving invisible lightbox');
+			console.log('Scale info: ' + scale);
+			console.log('Rotation info: ' + rotate);
+			console.log('Translation ' + lightBoxTransformInfo);
+			var translationMatrix = Transform.translate(lightBoxTranslateInfo[0], lightBoxTranslateInfo[1], lightBoxTranslateInfo[2]);
+			lightBoxTransformContainer.inTransform = Transform.multiply(translationMatrix, Transform.scale(0.001, 0.001, 0.001));
+ 		}
+		
+		if (this.disableScrollView) {
+			this.scollView_earlyEnd = true;
 		}
 	}
-	
-	function _scrollViewStablize(event) {
-		var transformModifiers = this.imageModifiers;
-		
-		
-		if (!this.doneRotating) {
-			var notDoneRotation = false;
-			for (var i = 0; i < transformModifiers.length; ++i) {
-				var currentTransformMatrix = transformModifiers[i].getTransform();
-				var transformProperties = Transform.interpret(currentTransformMatrix)
-				var rotation = transformProperties.rotate;
-				
-				if (rotation[0] > 0) {
-					var radToRotate = (Math.PI / 120) * ( 1 / (i + 1) );
-					if (rotation[0] <  radToRotate) {
-						radToRotate = rotation[0];
-						//Loss of precision, clamp to zero if our rotation gets to low.
-						if (radToRotate = 0.000000000000001) {
-							rodToRotate = 0;
-							
-						}
-					}
-					notDoneRotation = true;
-					currentTransformMatrix = Transform.multiply(Transform.rotateX(-radToRotate), currentTransformMatrix);
-					
-					var afterTransformMatrix = Transform.interpret(currentTransformMatrix);
-					var translation = afterTransformMatrix.translate;
-					currentTransformMatrix = Transform.multiply(Transform.translate(0, 0, 0), currentTransformMatrix);
-					transformModifiers[i].setTransform(currentTransformMatrix);
-					if (translation[2] < -5) {
-						transformModifiers[i].setTransform(Transform.translate(translation[0], translation[1] - 0.95, 0));
-					}
-					console.log(translation)
-				}
-			
-			//TODO: Lerp back to the identity
-			}
-			
-			
-			if (notDoneRotation) {
-				Timer.clear(_scrollViewStablize);
-				this.doneRotatiing = true;
-			}
-			
-		}
-	}
-	
 	function _onTouchEnd(event) {
-		//console.log(event);
-		this.doneRotating = false;
-		if (!this.intervalSet) {
-			Timer.every(_scrollViewStablize.bind(this), 0.5);
-			this.intervalSet = true;	
-		}
 	}
 	
 	Gallery.prototype.transitionIn = function(event, tabName) {
@@ -352,5 +329,8 @@ define(function(require, exports, module) {
 		}
 	}
 
+	Engine.on('prerender', function(event){
+		
+	})
     module.exports = Gallery;
 });
