@@ -65,14 +65,13 @@ define(function(require, exports, module) {
 		var contextSize = this.options.size;
 		scrollview.sequenceFrom(scrollViews);
 		scrollview.offsetY = 0;
-		
+		this.offsetY = 0;
 		var gridCells = [];
 		
 		var grid = new GridLayout();
 		grid.sequenceFrom(gridCells);
 		
 		grid.mod = new Modifier();
-		this.offsetY = 0;
 		var cellCount     = 24;
 		var cellMinWidth  = 200.0;
 		
@@ -115,13 +114,30 @@ define(function(require, exports, module) {
 				  var center = [translate[0] + Math.round(size[0] / 2), translate[1] + Math.round(size[1] / 2)];
 				  center[0] = center[0] - window.innerWidth / 2;
 				  center[1] = center[1] - window.innerHeight / 2;
+				  console.log('LightBox inTransformCenter: ' + center);
+				  console.log('this.offsetY when lightbox is shown: ' + this.offsetY);
 				  var finalTransform = null;
+				  var interuptationTransform = null;
 				  var scaleFactor = [size[0] / window.innerWidth, size[1] / window.innerHeight];
-				  var scaleAmount = Transform.scale(scaleFactor[0], scaleFactor[1], 1);
-				  finalTransform = Transform.multiply(Transform.translate(center[0], center[1] + this.offsetY, 1), scaleAmount);
+				  var scaleAmount = Transform.scale(scaleFactor[0], scaleFactor[1], 0.001);
+				  
+				  console.log('IN TRANSFORM: ');
+				  interuptationTransform = Transform.interpret(scaleAmount);
+				  console.log('Scale: ' + interuptationTransform.scale);
+				  
+				  finalTransform = Transform.multiply(Transform.translate(0, center[1] , 1), scaleAmount);
 				  //finalTransform = Transform.multiply(Transform.translate(0, viewTemp.offsetY, 1), finalTransform);
+				  interuptationTransform = Transform.interpret(finalTransform);
+				  console.log('Translation: ' + interuptationTransform.translate);
 				  lightBox.options.inTransform = finalTransform;
-				  lightBox.options.outTransform = lightBox.options.inTransform;
+				  
+				  lightBox.options.showTransform = Transform.translate(0, center[1], 0);
+				  lightBox.options.outTransform = Transform.multiply(Transform.translate(0, center[1], 0), Transform.scale(0.001, 0.001, 0.001))
+				  var showTransform = Transform.interpret(lightBox.options.outTransform);
+				  console.log('OUT TRANFORM: ')
+				  console.log('Translation: ' + showTransform.translate);
+				  console.log('Scale: ' + showTransform.scale);
+				  console.log('Rotation: ' + showTransform.rotation);
 				  this.shown = true;
 				  viewTemp.disableScrollView = true;
 				  lightBox.showing = true;
@@ -248,7 +264,6 @@ define(function(require, exports, module) {
 	
 	function _update(event) {
 		console.log(event);
-		
 		var lightBoxTransformContainer = this.lightBox.options.__proto__;
 		var lightBox = this.lightBox;
 		var lightBoxTransformInfo;
@@ -259,22 +274,9 @@ define(function(require, exports, module) {
 			console.log('Moving visible lightbox');
 			console.log('Scale info: ' + lightBoxTransformInfo.scale);
 			console.log('Rotation info: ' + lightBoxTransformInfo.rotate);
-			console.log('TranslationL ' + showTranslation);
+			console.log('Translation: ' + showTranslation);
 			lightBoxTransformContainer.showTransform = Transform.translate(Transform.translate(showTranslation[0], showTranslation[1] + this.position, showTranslation[2]));
 		}
-		else {
-			lightBoxTransformInfo = Transform.interpret(lightBoxTransformContainer.inTransform);
-			var scale = lightBoxTransformInfo.scale;
-			var rotate = lightBoxTransformInfo.rotate;
-			var lightBoxTranslateInfo = lightBoxTransformInfo.translate;
-			
-			console.log('Moving invisible lightbox');
-			console.log('Scale info: ' + scale);
-			console.log('Rotation info: ' + rotate);
-			console.log('Translation ' + lightBoxTransformInfo);
-			var translationMatrix = Transform.translate(lightBoxTranslateInfo[0], lightBoxTranslateInfo[1], lightBoxTranslateInfo[2]);
-			lightBoxTransformContainer.inTransform = Transform.multiply(translationMatrix, Transform.scale(0.001, 0.001, 0.001));
- 		}
 		
 		if (this.disableScrollView) {
 			this.scollView_earlyEnd = true;
