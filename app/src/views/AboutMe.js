@@ -90,7 +90,7 @@ define(function(require, exports, module) {
 		});
 		
 		var avatarTransformModifier = new StateModifier({
-			transform : Transform.translate(-this.options.avatarOffsetX, -50, 5),
+			transform : Transform.translate(centerX * 2, centerY, 5),
 			origin : [0.5, 0.5]
 		});
 		

@@ -31,7 +31,7 @@ define(function(require, exports, module) {
 		});
 
 		
-		backgroundSurface.setContent('http://thomasstreet.com/TableMtn.mp4');
+		backgroundSurface.setContent('http://vid358.photobucket.com/albums/oo24/encephalopathy/TableMtn_zpssn7ut43t.mp4');
 		/*backgroundSurface.setOptions({
 			loop : 'true'
 		})*/

@@ -14,7 +14,7 @@ define(function(require, exports, module) {
      * @description
      */
 
-    function MenuView() {
+    function MenuView(size) {
         View.apply(this, arguments);
 		_setListeners.call(this);
 		_createBackground.call(this);
@@ -24,7 +24,6 @@ define(function(require, exports, module) {
     }
 	
 	function _setListeners() {
-		
 		this._eventInput.on('TabReflow', _resetTabs.bind(this));
 	}
 	

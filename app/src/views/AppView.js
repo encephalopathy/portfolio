@@ -21,15 +21,14 @@ define(function(require, exports, module) {
      * @description
      */
 
-    function AppView() {
+    function AppView(size) {
         View.apply(this, arguments);
 		this.pageController = new PageController();
 		this.pages = Object();
 		this.pages['Home'] = new Object();
 		this.currentTabOpened = "";
-		
 		_createNavBar.call(this);
-		_createBackground.call(this);
+		//_createBackground.call(this);
 		_setListeners.call(this);
     }
 
@@ -39,7 +38,7 @@ define(function(require, exports, module) {
 	function _createNavBar() {
 		
 		this.navBar = new MenuView({
-			width : window.innerWidth,
+			width : this.options.size[0],
 			topOffset : 250
 		});
 		
@@ -77,7 +76,7 @@ define(function(require, exports, module) {
 		if (this.pages[tabName] == undefined) {
 			switch (tabName) {
 				case 'Gallery':
-					this.pages[tabName] = new Gallery(data, this.pageController);
+					this.pages[tabName] = new Gallery( { size : this.options.size } );
 				break;
 				case 'About Me':
 					this.pages[tabName] = new AboutMe(data, this.pageController);
@@ -102,7 +101,7 @@ define(function(require, exports, module) {
 	}
 	
     AppView.DEFAULT_OPTIONS = {
-    	
+    	size : [750, 750]
 	};
 
     module.exports = AppView;

@@ -35,7 +35,8 @@ define(function(require, exports, module) {
     Gallery.DEFAULT_OPTIONS = {
 		//Need to explicitly define keys for firebase, there are no concept of
 		//arrays in their no sql schema.
-		images : { 0 : 'content/images/alien_hover_tank_combat.png',
+		images : { 
+				 0 : 'content/images/alien_hover_tank_combat.png',
 		 		 1 : 'content/images/Bridge.png',
 				 2 : 'content/images/Cityscape.png',
 				 3 : 'content/images/heli_back.png',
@@ -46,11 +47,7 @@ define(function(require, exports, module) {
 		offScreenOffsetX : 2000,
 		offScreenOffsetY : 0,
 		size : [ window.innerWidth, window.innerHeight],
-		orderNumber : 4,
-		stabilzationTime: 100,
-		scrolling : false,
-		intervalSet : false,
-		doneRotating : true,
+		orderNumber : 4
     };
 	
 	function _createGrid() {

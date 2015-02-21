@@ -7,7 +7,9 @@ define(function(require, exports, module) {
 	// create the main context
 	
     var mainContext = Engine.createContext();
-	var appView = new AppView();
+	var appView = new AppView({
+		context : mainContext
+	});
 	
 	
 	
