@@ -39,6 +39,7 @@
     "famous-metrics": "0.0.4"
   },
   "scripts": {
+	"start": "node app/server.js",
     "test": "grunt test"
   }
 }
