@@ -39,7 +39,10 @@
     "famous-metrics": "0.0.4"
   },
   "scripts": {
-	"start": "grunt",
+    "start": "grunt",
     "test": "grunt test"
+  },
+  "dependencies": {
+    "express": "^4.11.2"
   }
 }
