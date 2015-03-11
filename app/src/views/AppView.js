@@ -13,6 +13,8 @@ define(function(require, exports, module) {
 	var PageController = require('../controllers/PageController');
 	var Gallery = require('../views/Gallery');
 	var AboutMe = require('../views/AboutMe');
+	var Skills = require('../views/Skills');
+	var ScrollView = require('famous/views/Scrollview');
 	GenericSync.register({ 'mouse' : MouseSync, 'touch': TouchSync});
 	//var HeaderData = require('views/headers')
     /*
@@ -28,8 +30,8 @@ define(function(require, exports, module) {
 		this.pages.Home = new Object();
 		this.currentTabOpened = '';
 		_createNavBar.call(this);
-		//_createBackground.call(this);
 		_setListeners.call(this);
+		_createScrollView.call(this);
     }
 
     AppView.prototype = Object.create(View.prototype);
@@ -48,23 +50,14 @@ define(function(require, exports, module) {
 		
 		this.add(menuViewModifier).add(this.navBar);
 	}
-	
-	function _createBackground() {
-		var backgroundVideo = new VideoView();
-		
-		var backgroundViewModifier = new StateModifier({
-			transform : Transform.behind
-		});
-		this.backgroundViewModifier = backgroundViewModifier;
-		this.add(backgroundViewModifier).add(backgroundVideo);
-	}
+
 	
 	function _setListeners() {
 		
-		this.pageController.eventHandler.subscribe(this.navBar._eventInput);
+		//this.pageController.eventHandler.subscribe(this.navBar._eventInput);
 		this.subscribe(this.pageController.eventHandler);
 		
-		this._eventInput.on('TabReflow', _changeView.bind(this));
+		//this._eventInput.on('TabReflow', _changeView.bind(this));
 	}
 	
 	function _changeView(event) {
@@ -94,9 +87,49 @@ define(function(require, exports, module) {
 		}
 		
 		if (this.pages[tabName].transitionIn != undefined) {
+			console.log('Data: ' + data);
 			this.pages[tabName].transitionIn(data);
 		}
 		
+	}
+	
+	function _createScrollView() {
+		var scrollView = new ScrollView();
+		var surfaces = [];
+		
+		
+		/*for (var i = 0; i < 100; ++i) {
+			var temp = new Surface({
+				content : "Surface: " + (i + 1),
+				size : [undefined, 100],
+				properties : {
+					backgroundColor : "hsl(" + (i * 360 / 40) + ", 100%, 50%)",
+					lineHeight : "100px",	
+					textAlign : "center"
+				}
+			});
+		*/	
+			//surfaces.push(temp);
+			var videoIntroView = new VideoView();
+			videoIntroView.pipe(scrollView);
+			surfaces.push(videoIntroView);
+		
+			var aboutMe = new AboutMe(null, this.pageController);
+			aboutMe.pipe(scrollView);
+			surfaces.push(aboutMe);
+			
+			var skills = new Skills();
+			skills.pipe(scrollView);
+			surfaces.push(skills);
+			//}
+		
+		scrollView.sequenceFrom(surfaces);
+		
+		var stateModifier = new StateModifier({
+			transform : Transform.translate(0, 0, -5)
+		});
+		
+		this.add(scrollView);
 	}
 	
     AppView.DEFAULT_OPTIONS = {

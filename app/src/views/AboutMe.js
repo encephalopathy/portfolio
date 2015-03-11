@@ -16,7 +16,6 @@ define(function(require, exports, module) {
 		var centerX = window.innerWidth * 0.5;
 		var centerY = window.innerHeight * 0.5;
 		var backgroundSurface = new Surface({
-			size : [this.options.width, this.options.height],
 			properties : {
 				backgroundColor : 'black',
 				boxShadow: '0 0 5px black'
@@ -24,17 +23,18 @@ define(function(require, exports, module) {
 		});
 		
 		var stateModifier = new StateModifier({
-			transform : Transform.translate(1000 + centerX, centerY, 5),
+			transform : Transform.translate(centerX, centerY, 5),
 			origin : [0.5, 0.5]
 		});
 		
 		this.fadeInOutModifier = new StateModifier({
-			opacity : 0
+			opacity : 1
 		});
 		
-		this.add(stateModifier).add(this.fadeInOutModifier).add(backgroundSurface);
+		this.add(this.fadeInOutModifier).add(backgroundSurface);
 		
 		this.backgroundSurface = backgroundSurface;
+		this.backgroundSurface.pipe(this._eventOutput);
 		this.backgroundTransformModifier = stateModifier;
 	}
 	
@@ -55,12 +55,12 @@ define(function(require, exports, module) {
 		});
 		
 		var transformModifier = new StateModifier({
-			transform : Transform.translate(1000, 0, 5),
+			transform : Transform.translate(centerX + 125, centerY - 200, 5),
 			origin : [0.5, 0.5]
 		});
 		
 		var fadeInOutModifier = new StateModifier({
-			opacity : 0
+			opacity : 1
 		});
 		
 		this.add(fadeInOutModifier).add(transformModifier).add(title);
@@ -81,12 +81,12 @@ define(function(require, exports, module) {
 		});
 		
 		var avatarTransformModifier = new StateModifier({
-			transform : Transform.translate(centerX * 2, centerY, 5),
+			transform : Transform.translate(this.options.avatarOffsetX + centerX, centerY + -50, 5),
 			origin : [0.5, 0.5]
 		});
 		
 		var avatarOpacityModifier = new StateModifier({
-			opacity : 0
+			opacity : 1
 		});
 		
 		this.add(avatarOpacityModifier).add(avatarTransformModifier).add(avatar);
@@ -113,12 +113,12 @@ define(function(require, exports, module) {
 		});
 		
 		var transformModifier = new StateModifier({
-			transform : Transform.translate(this.options.startingDepth , 600, 5),
+			transform : Transform.translate(centerX + 150, centerY + 70, 5),
 			origin : [0.5, 0.5]
 		});
 		
 		var fadeInOutModifier = new StateModifier({
-			opacity : 0
+			opacity : 1
 		});
 		
 		this.add(fadeInOutModifier).add(transformModifier).add(title);

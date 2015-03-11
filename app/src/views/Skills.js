@@ -4,45 +4,36 @@ define(function(require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
-	var VideoSurface = require('famous/surfaces/VideoSurface');
-	var ImageSurface = require('famous/surfaces/ImageSurface');
+
     /*
-     * @name VideoView
+     * @name Skills
      * @constructor
      * @description
      */
 
-    function VideoView() {
+    function Skills() {
         View.apply(this, arguments);
 		_createBackground.call(this);
-		
     }
 	
 	function _createBackground() {
-		var backgroundSurface = new VideoSurface({
-			size : [
-				undefined, true
-			],
-			autoplay : 'true',
-			loop : 'true',
+		var backgroundSurface = new Surface({
 			properties : {
-				preload : 'auto'
+				backgroundColor : 'white'
 			}
 		});
-		
-		backgroundSurface.setContent('content/images/TableMtn.mp4');
 		
 		backgroundSurface.pipe(this._eventOutput);
 		
 		this.add(backgroundSurface);
-		
 	}
 
-    VideoView.prototype = Object.create(View.prototype);
-    VideoView.prototype.constructor = VideoView;
+    Skills.prototype = Object.create(View.prototype);
+    Skills.prototype.constructor = Skills;
 
-    VideoView.DEFAULT_OPTIONS = {
+    Skills.DEFAULT_OPTIONS = {
+		
     };
 
-    module.exports = VideoView;
+    module.exports = Skills;
 });

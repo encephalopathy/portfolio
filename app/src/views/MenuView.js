@@ -121,7 +121,7 @@ define(function(require, exports, module) {
 		});
 		
 		var transformModifier = new StateModifier({
-			transform : Transform.translate(10, 7.55, 2),
+			transform : Transform.translate(window.innerWidth - 55, 7.55, 2),
 			origin : [0, 0]
 		});
 		
