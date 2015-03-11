@@ -25,8 +25,8 @@ define(function(require, exports, module) {
         View.apply(this, arguments);
 		this.pageController = new PageController();
 		this.pages = Object();
-		this.pages['Home'] = new Object();
-		this.currentTabOpened = "";
+		this.pages.Home = new Object();
+		this.currentTabOpened = '';
 		_createNavBar.call(this);
 		//_createBackground.call(this);
 		_setListeners.call(this);
@@ -70,13 +70,12 @@ define(function(require, exports, module) {
 	function _changeView(event) {
 		var data = event.data;
 		var tabName = event.tabName;
-		console.log("Changing views: " + tabName);
 		var oldTabName = this.oldTabName;
 		this.oldTabName = tabName;
 		if (this.pages[tabName] == undefined) {
 			switch (tabName) {
 				case 'Gallery':
-					this.pages[tabName] = new Gallery( { size : this.options.size } );
+					this.pages[tabName] = new Gallery({ size : this.options.size });
 				break;
 				case 'About Me':
 					this.pages[tabName] = new AboutMe(data, this.pageController);

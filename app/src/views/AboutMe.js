@@ -11,24 +11,15 @@ define(function(require, exports, module) {
      * @constructor
      * @description
      */
-
-    function AboutMe() {
-        View.apply(this, arguments);
-		_createBackground.call(this);
-		_createTitle.call(this);
-		_createDescription.call(this);
-		_createAvatar.call(this);
-		this.direction = 1;
-    }
 	
 	function _createBackground() {
-		var centerX = window.innerWidth * 0.5
-		var centerY = window.innerHeight * 0.5
+		var centerX = window.innerWidth * 0.5;
+		var centerY = window.innerHeight * 0.5;
 		var backgroundSurface = new Surface({
 			size : [this.options.width, this.options.height],
 			properties : {
 				backgroundColor : 'black',
-				boxShadow: '0 0 5px black',
+				boxShadow: '0 0 5px black'
 			}
 		});
 		
@@ -48,8 +39,8 @@ define(function(require, exports, module) {
 	}
 	
 	function _createTitle() {
-		var centerX = window.innerWidth * 0.5
-		var centerY = window.innerHeight * 0.5
+		var centerX = window.innerWidth * 0.5;
+		var centerY = window.innerHeight * 0.5;
 		var title = new Surface({
 			size : [true, true],
 			content : this.options.title,
@@ -79,8 +70,8 @@ define(function(require, exports, module) {
 	}
 	
 	function _createAvatar() {
-		var centerX = window.innerWidth * 0.5
-		var centerY = window.innerHeight * 0.5
+		var centerX = window.innerWidth * 0.5;
+		var centerY = window.innerHeight * 0.5;
 		var avatar = new ImageSurface({
 			size : [250, 250],
 			content : this.options.avatarURL,
@@ -107,8 +98,8 @@ define(function(require, exports, module) {
 	function _createDescription() {
 		
 		
-		var centerX = window.innerWidth * 0.5
-		var centerY = window.innerHeight * 0.5
+		var centerX = window.innerWidth * 0.5;
+		var centerY = window.innerHeight * 0.5;
 		var title = new Surface({
 			size : [400, 400],
 			content : this.options.bio,
@@ -136,6 +127,17 @@ define(function(require, exports, module) {
 		this.descriptionFadeInOutModifier = fadeInOutModifier;
 	}
 
+    function AboutMe() {
+        View.apply(this, arguments);
+		_createBackground.call(this);
+		_createTitle.call(this);
+		_createDescription.call(this);
+		_createAvatar.call(this);
+		this.direction = 1;
+    }
+	
+	
+
     AboutMe.prototype = Object.create(View.prototype);
     AboutMe.prototype.constructor = AboutMe;
 	
@@ -146,8 +148,8 @@ define(function(require, exports, module) {
 			this.options.bio = data.bio;
 		}
 		
-		var centerX = window.innerWidth * 0.5
-		var centerY = window.innerHeight * 0.5
+		var centerX = window.innerWidth * 0.5;
+		var centerY = window.innerHeight * 0.5;
 		this.backgroundTransformModifier.setTransform(
 			Transform.translate(centerX, centerY, 5),
 			{ duration : 1000 , curve : 'easeInOut' }
@@ -187,13 +189,13 @@ define(function(require, exports, module) {
 		this.avatarOpacityModifier.setOpacity(
 			0.8,
 			{ duration : 1000, curve : 'easeInOut'}
-		)
+		);
 		
 	}
 	
 	function _hideHome() {
-		var centerX = window.innerWidth * 0.5
-		var centerY = window.innerHeight * 0.5
+		var centerX = window.innerWidth * 0.5;
+		var centerY = window.innerHeight * 0.5;
 		var hideLoc = this.options.startingDepth + centerY;
 		
 		
@@ -236,7 +238,7 @@ define(function(require, exports, module) {
 		this.avatarOpacityModifier.setOpacity(
 			0,
 			{ duration : 1000, curve : 'easeInOut'}
-		)
+		);
 	}
 	
 	AboutMe.prototype.transitionOut = function(oldTabName, orderNumber) {

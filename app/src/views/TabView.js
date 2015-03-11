@@ -26,7 +26,7 @@ define(function(require, exports, module) {
     TabView.prototype.constructor = TabView;
 	
     function _createBackground() {
-		console.log('Background being created for tabView: w: ' + this.options.offset + ", h: " + this.options.height);
+		console.log('Background being created for tabView: w: ' + this.options.offset + ', h: ' + this.options.height);
         var backgroundSurface = new Surface({
             size: [100, this.options.height],
             properties: {
@@ -93,11 +93,11 @@ define(function(require, exports, module) {
 	
 	TabView.prototype.changeText = function(textToChange) {
 		
-		if (this.title != undefined && this.title.surface != undefined) {
+		if (this.title !== undefined && this.title.surface !== undefined) {
 			this.title.surface.setContent(textToChange);
 		}
 		else {
-			console.log("Title is missing");
+			console.log('Title is missing');
 		}
 	}
 	

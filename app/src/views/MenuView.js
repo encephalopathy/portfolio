@@ -51,7 +51,6 @@ define(function(require, exports, module) {
 		var height = this.options.height;
 		
 		var tabWidth = this.options.width;
-		console.log('initial tab width');
 		if (this.options.tabData.length > 0) {
 			tabWidth = tabWidth / this.options.tabData.length;
 		}
@@ -60,7 +59,6 @@ define(function(require, exports, module) {
 		this.tabModifiers = new Array();
 		
 		for (var i = 0; i < this.options.tabData.length; ++i) {
-			console.log("tabWidth: " + tabWidth);
 			var surface = new TabView({
 				title : this.options.tabData[i],
 				parentTranslation: xOffset,
@@ -71,7 +69,6 @@ define(function(require, exports, module) {
 			});
 			
 			this.subscribe(surface);
-			console.log('xOffset for ' + this.options.tabData[i].title + " is " + xOffset)
 			var transformModifier = new StateModifier({
 				transform : Transform.translate(xOffset, 0, 1)
 			});

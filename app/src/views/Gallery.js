@@ -171,7 +171,6 @@ define(function(require, exports, module) {
 	}
 	
 	Gallery.prototype.transitionIn = function(event, tabName) {
-		console.log('Transition In');
 		var centerX = window.innerWidth * 0.5;
 		var centerY = window.innerHeight * 0.5;
 		
@@ -183,7 +182,6 @@ define(function(require, exports, module) {
 	}
 	
 	Gallery.prototype.transitionOut = function(oldTabName, orderNumber) {
-		console.log('Transition Out');
 		
 		var centerX = window.innerWidth * 0.5;
 		var centerY = window.innerHeight * 0.5;
@@ -202,9 +200,6 @@ define(function(require, exports, module) {
 			});
 		}
 	}
-
-	Engine.on('prerender', function(event){
-		
-	})
+	
     module.exports = Gallery;
 });

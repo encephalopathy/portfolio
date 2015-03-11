@@ -31,11 +31,10 @@ define(function(require, exports, module) {
 		});
 
 		
-		backgroundSurface.setContent('http://vid358.photobucket.com/albums/oo24/encephalopathy/TableMtn_zpssn7ut43t.mp4');
+		backgroundSurface.setContent('content/images/TableMtn.mp4');
 		/*backgroundSurface.setOptions({
 			loop : 'true'
 		})*/
-		console.log('Creating background');
 		var transformModifier = new StateModifier({
 			transform : Transform.translate(0, 0, -1)
 		});
