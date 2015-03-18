@@ -20,7 +20,9 @@ define(function(require, exports, module) {
     /*
      * @name Gallery
      * @constructor
-     * @description
+     * @description: Creates the light box that is used to display
+	 * which image to zoom in and out on as well as the grid view that all
+	 * static images rest upon.
      */
 
     function Gallery() {
@@ -168,6 +170,10 @@ define(function(require, exports, module) {
 		
 		this.lightBox = lightBox;
 		this.add(lightBox);
+	}
+	
+	function _gridImagesTransitionIn() {
+		
 	}
 	
 	Gallery.prototype.transitionIn = function(event, tabName) {

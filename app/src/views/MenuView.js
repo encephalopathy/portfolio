@@ -19,7 +19,7 @@ define(function(require, exports, module) {
 		_setListeners.call(this);
 		_createBackground.call(this);
 		_createTabs.call(this);
-		_createHighlighter.call(this);
+		//_createHighlighter.call(this);
 		_createHamburgerView.call(this);
     }
 	
@@ -29,14 +29,14 @@ define(function(require, exports, module) {
 	
 	function _createBackground() {
 		var blackBackgroundSurface = new Surface({
-			size : [this.options.width, 60],
+			size : [100, undefined],
 			properties : {
 				backgroundColor : 'black'
 			}
 		});
 		
 		var transformModifier = new StateModifier({
-			transform : Transform.translate(0, 0, 0),
+			transform : Transform.translate(0, 0, 1),
 			origin : [0, 0]
 		});
 		
@@ -50,7 +50,7 @@ define(function(require, exports, module) {
 		var width = this.options.width;
 		var height = this.options.height;
 		
-		var tabWidth = this.options.width;
+		var tabWidth = this.options.height;
 		if (this.options.tabData.length > 0) {
 			tabWidth = tabWidth / this.options.tabData.length;
 		}
@@ -62,18 +62,18 @@ define(function(require, exports, module) {
 			var surface = new TabView({
 				title : this.options.tabData[i],
 				parentTranslation: xOffset,
-				offset : tabWidth,
+				offset : tabWidth + 25,
 				width : 100,
-				height : 50,
+				height : xOffset,
 				orderNumber : i
 			});
 			
 			this.subscribe(surface);
 			var transformModifier = new StateModifier({
-				transform : Transform.translate(xOffset, 0, 1)
+				transform : Transform.translate(20, xOffset + 125, 1)
 			});
 			
-			xOffset += tabWidth;
+			xOffset += tabWidth + 20;
 			
 			this.tabs.push(surface);
 			this.tabModifiers.push(transformModifier);
@@ -121,7 +121,7 @@ define(function(require, exports, module) {
 		});
 		
 		var transformModifier = new StateModifier({
-			transform : Transform.translate(window.innerWidth - 55, 7.55, 2),
+			transform : Transform.translate(25, 7.55, 3),
 			origin : [0, 0]
 		});
 		
@@ -144,8 +144,8 @@ define(function(require, exports, module) {
 		}
 		this.blackBackgroundModifier.setOpacity(this.visible ? 0 : 1, 
 				{ duration : maxFadeDuration + 200, curve : 'easeInOut' });
-		this.highlighterTransformModifier.setOpacity(this.visible ? 0 : 1, 
-				{ duration : maxFadeDuration, curve : 'easeInOut' });
+		//this.highlighterTransformModifier.setOpacity(this.visible ? 0 : 1, 
+		//		{ duration : maxFadeDuration, curve : 'easeInOut' });
 		this.visible = !this.visible;
 	}
 	
@@ -156,10 +156,10 @@ define(function(require, exports, module) {
 			var options = this.tabs[i].getOptions();
 			if (tabNameClicked == options.title) {
 				var orderNumber = options.orderNumber;
-				this.highlighterTransformModifier.setTransform(
+				/*this.highlighterTransformModifier.setTransform(
 					Transform.translate(orderNumber * options.offset + 75, options.height * 0.372, 6),
 					{ duration : 500 , curve : 'easeIn' }
-				)
+				)*/
 				break;
 			}
 		}
@@ -172,8 +172,9 @@ define(function(require, exports, module) {
     MenuView.DEFAULT_OPTIONS = {
 		tabData : ['Home', 'About Me', 'Games', 'Gallery', 'Blog'],
 		topOffset : 0,
-		tabWidth: 100,
+		tabWidth: 30,
 		width : window.innerWidth,
+		height : window.innerHeight,
 		height : 100,
 		fadeDuration : 2500
     };

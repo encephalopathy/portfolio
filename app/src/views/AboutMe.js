@@ -148,28 +148,7 @@ define(function(require, exports, module) {
 			this.options.bio = data.bio;
 		}
 		
-		var centerX = window.innerWidth * 0.5;
-		var centerY = window.innerHeight * 0.5;
-		this.backgroundTransformModifier.setTransform(
-			Transform.translate(centerX, centerY, 5),
-			{ duration : 1000 , curve : 'easeInOut' }
-		);
-		
-		this.descriptionTransformModifier.setTransform(
-			Transform.translate(centerX + 150, centerY + 70, 5),
-			{ duration : 1000 , curve : 'easeInOut' }
-		);
-		
-		this.titleTransformModifier.setTransform(
-			Transform.translate(centerX + 125, centerY - 200, 6),
-			{ duration : 1000 , curve : 'easeInOut' }
-		);
-		
-		this.avatarTransformModifier.setTransform(
-			Transform.translate(this.options.avatarOffsetX + centerX, centerY + -50, 5),
-			{ duration : 1000 , curve : 'easeInOut' }
-		);
-		
+		this.backgroundSurface.pipe(this._eventOutput);
 		
 		this.titleFadeInOutModifier.setOpacity(
 			0.8,
@@ -196,29 +175,8 @@ define(function(require, exports, module) {
 	function _hideHome() {
 		var centerX = window.innerWidth * 0.5;
 		var centerY = window.innerHeight * 0.5;
-		var hideLoc = this.options.startingDepth + centerY;
 		
-		
-		this.backgroundTransformModifier.setTransform(
-			Transform.translate(hideLoc * this.direction + centerX, centerY, 5),
-			{ duration : 1000 , curve : 'easeInOut' }
-		);
-		
-		this.descriptionTransformModifier.setTransform(
-			Transform.translate(hideLoc * this.direction + centerX, 70 + centerY, 5),
-			{ duration : 1000 , curve : 'easeInOut' }
-		);
-		
-		this.titleTransformModifier.setTransform(
-			Transform.translate(hideLoc * this.direction + centerX, -200 + centerY, 6),
-			{ duration : 1000 , curve : 'easeInOut' }
-		);
-		
-		this.avatarTransformModifier.setTransform(
-			Transform.translate(hideLoc * this.direction + centerX, -50 + centerY, 5),
-			{ duration : 1000 , curve : 'easeInOut' }
-		);
-		
+		this.backgroundSurface.pipe(this._eventOutput);
 		
 		this.titleFadeInOutModifier.setOpacity(
 			0,
@@ -254,6 +212,7 @@ define(function(require, exports, module) {
 			break;
 			default:
 				_hideHome.call(this);
+				this.backgroundSurface.unpipe(this._eventOutput);
 		}
 		
 	}

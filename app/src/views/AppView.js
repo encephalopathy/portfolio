@@ -54,10 +54,10 @@ define(function(require, exports, module) {
 	
 	function _setListeners() {
 		
-		//this.pageController.eventHandler.subscribe(this.navBar._eventInput);
+		this.pageController.eventHandler.subscribe(this.navBar._eventInput);
 		this.subscribe(this.pageController.eventHandler);
 		
-		//this._eventInput.on('TabReflow', _changeView.bind(this));
+		this._eventInput.on('TabReflow', _changeView.bind(this));
 	}
 	
 	function _changeView(event) {
