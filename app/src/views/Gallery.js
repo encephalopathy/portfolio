@@ -150,7 +150,7 @@ define(function(require, exports, module) {
 	  scrollViews.push(grid.node);
 	  
 	  var scrollViewTransformModifier = new StateModifier({
-		  transform : Transform.translate(this.options.offScreenOffset, window.innerHeight * 0.5, -5),
+		  transform : Transform.translate(this.options.offScreenOffset, window.innerHeight * 0.5, 7),
 		  origin : [0.5, 0.5]
 	  });
 	  
@@ -181,7 +181,7 @@ define(function(require, exports, module) {
 		var centerY = window.innerHeight * 0.5;
 		
 		this.scrollViewTransform.setTransform(
-			Transform.translate(centerX, centerY, -5), { 
+			Transform.translate(centerX, centerY, 7), { 
 				duration : 1000, curve : 'easeInOut'
 			}
 		)

@@ -86,7 +86,7 @@ define(function(require, exports, module) {
 		});
 		
 		var designTextTransform = new StateModifier({
-			transform : Transform.translate(centerX + centerDisplacement, 400, 7)
+			transform : Transform.translate(centerX + centerDisplacement + textSize * 0.66 , 400, 7)
 		})
 		
 		//Add all the icons to the view.

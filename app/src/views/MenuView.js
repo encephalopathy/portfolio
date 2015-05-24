@@ -64,13 +64,13 @@ define(function(require, exports, module) {
 				parentTranslation: xOffset,
 				offset : tabWidth + 25,
 				width : 100,
-				height : xOffset,
+				height : 50,
 				orderNumber : i
 			});
 			
 			this.subscribe(surface);
 			var transformModifier = new StateModifier({
-				transform : Transform.translate(20, xOffset + 125, 1)
+				transform : Transform.translate(20, xOffset + 50, 1)
 			});
 			
 			xOffset += tabWidth + 20;
@@ -170,7 +170,7 @@ define(function(require, exports, module) {
     MenuView.prototype.constructor = MenuView;
 
     MenuView.DEFAULT_OPTIONS = {
-		tabData : ['Home', 'About Me', 'Games', 'Gallery', 'Blog'],
+		tabData : ['Home', 'About Me', 'Gallery', 'Blog'],
 		topOffset : 0,
 		tabWidth: 30,
 		width : window.innerWidth,

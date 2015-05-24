@@ -30,15 +30,15 @@ define(function(require, exports, module) {
         var backgroundSurface = new Surface({
             size: [100, this.options.height],
             properties: {
-                backgroundColor: 'black',
+                backgroundColor: 'green'
             }
         });
 
         var transformModifier = new StateModifier({
-			transform : Transform.translate(this.options.offset / 2 - this.options.offset / 6, 0, 2)
+			transform : Transform.translate(-10, this.options.offset / 2 - this.options.offset / 6, 2)
         });
 		
-		transformModifier.setOpacity(0);
+		transformModifier.setOpacity(1);
 		
 		backgroundSurface.on('click', function(message) {
 			message.tabName = this.options.title;

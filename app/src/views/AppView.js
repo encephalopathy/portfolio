@@ -52,11 +52,9 @@ define(function(require, exports, module) {
 	}
 
 	
-	function _setListeners() {
-		
+	function _setListeners() {	
 		this.pageController.eventHandler.subscribe(this.navBar._eventInput);
 		this.subscribe(this.pageController.eventHandler);
-		
 		this._eventInput.on('TabReflow', _changeView.bind(this));
 	}
 	
@@ -69,16 +67,19 @@ define(function(require, exports, module) {
 			switch (tabName) {
 				case 'Gallery':
 					this.pages[tabName] = new Gallery({ size : this.options.size });
+					
+					var stateModifier = new StateModifier({
+						transform : Transform.translate(0, 0, 7)
+					});
+					this.add(stateModifier).add(this.pages[tabName]);
 				break;
 				case 'About Me':
-					this.pages[tabName] = new AboutMe(data, this.pageController);
+					//this.pages[tabName] = new Gallery({})
+					//TODO: Scroll to this section on Home.
 				break;
 			}
 			
-			var stateModifier = new StateModifier({
-				transform : Transform.translate(0, 0, 7)
-			});
-			this.add(stateModifier).add(this.pages[tabName]);
+			
 		}
 		
 		if (oldTabName != undefined && oldTabName != tabName && this.pages[oldTabName].transitionOut != undefined) {
@@ -97,31 +98,17 @@ define(function(require, exports, module) {
 		var scrollView = new ScrollView();
 		var surfaces = [];
 		
+		var videoIntroView = new VideoView();
+		videoIntroView.pipe(scrollView);
+		surfaces.push(videoIntroView);
 		
-		/*for (var i = 0; i < 100; ++i) {
-			var temp = new Surface({
-				content : "Surface: " + (i + 1),
-				size : [undefined, 100],
-				properties : {
-					backgroundColor : "hsl(" + (i * 360 / 40) + ", 100%, 50%)",
-					lineHeight : "100px",	
-					textAlign : "center"
-				}
-			});
-		*/	
-			//surfaces.push(temp);
-			var videoIntroView = new VideoView();
-			videoIntroView.pipe(scrollView);
-			surfaces.push(videoIntroView);
-		
-			var aboutMe = new AboutMe(null, this.pageController);
-			aboutMe.pipe(scrollView);
-			surfaces.push(aboutMe);
+		var aboutMe = new AboutMe(null, this.pageController);
+		aboutMe.pipe(scrollView);
+		surfaces.push(aboutMe);
 			
-			var skills = new Skills();
-			skills.pipe(scrollView);
-			surfaces.push(skills);
-			//}
+		var skills = new Skills();
+		skills.pipe(scrollView);
+		surfaces.push(skills);
 		
 		scrollView.sequenceFrom(surfaces);
 		
