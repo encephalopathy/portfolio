@@ -1,48 +1,60 @@
 {
-  "name": "barata-portfolio",
-  "description": "A simple and elegant website that shows off all my programming work..",
-  "version": "0.1.0",
-  "homepage": "https://github.com/encephalopathy/barata-portfolio",
-  "author": {
-    "name": "brent",
-    "url": "http://github.com/encephalopathy/"
+  "name": "essential-react",
+  "version": "0.3.0",
+  "description": "A minimal skeleton for building testable React apps using ES6.",
+  "main": "src/main.jsx",
+  "scripts": {
+    "postinstall": "npm run build",
+    "server": "node server.js",
+    "build": "webpack -p --config webpack.production.config.js",
+    "test": "karma start karma.config.js",
+    "test-cross-browser": "./node_modules/karma/bin/karma start karma.cross-browser.config.js",
+    "coveralls": "cat coverage/lcov.info | coveralls",
+    "clean": "rm build/app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/encephalopathy/barata-portfolio.git"
+    "url": "https://github.com/pheuter/essential-react.git"
   },
+  "keywords": [
+    "skeleton",
+    "template",
+    "react",
+    "quickstart"
+  ],
+  "author": "Mark Fayngersh",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/encephalopathy/barata-portfolio/issues"
+    "url": "https://github.com/pheuter/essential-react/issues"
   },
-  "engines": {
-    "node": ">= 0.10.0"
-  },
+  "homepage": "https://github.com/pheuter/essential-react",
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-connect": "^0.7.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-contrib-copy": "^0.5.0",
-    "grunt-contrib-requirejs": "^0.4.3",
-    "grunt-contrib-htmlmin": "^0.2.0",
-    "grunt-contrib-concat": "^0.4.0",
-    "grunt-contrib-cssmin": "^0.9.0",
-    "grunt-contrib-uglify": "^0.4.0",
-    "grunt-rev": "^0.1.0",
-    "grunt-bower-requirejs": "^0.10.0",
-    "grunt-processhtml": "^0.3.0",
-    "grunt-usemin": "^2.1.0",
-    "grunt-eslint": "^0.4.0",
-    "grunt-jscs-checker": "^0.4.1",
-    "load-grunt-config": "^0.8.0-beta.1",
-    "time-grunt": "^0.3.1",
-    "famous-metrics": "0.0.4"
-  },
-  "scripts": {
-    "start": "grunt",
-    "test": "grunt test"
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.7",
+    "istanbul-instrumenter-loader": "^0.1.2",
+    "karma": "^0.13.9",
+    "karma-coverage": "^0.2.7",
+    "karma-mocha": "^0.1.10",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-sauce-launcher": "^0.2.10",
+    "karma-sinon-chai": "^0.3.0",
+    "karma-webpack": "^1.5.0",
+    "phantomjs": "^1.9.16",
+    "react-hot-loader": "^1.2.3",
+    "webpack-dev-server": "^1.7.0"
   },
   "dependencies": {
-    "express": "^4.11.2"
+    "autoprefixer": "^6.0.2",
+    "babel-core": "^5.4.7",
+    "babel-loader": "^5.1.3",
+    "css-loader": "^0.18.0",
+    "express": "^4.12.3",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "postcss-loader": "^0.6.0",
+    "postcss-nested": "^1.0.0",
+    "react": "^0.13.3",
+    "react-router": "^0.13.3",
+    "style-loader": "^0.12.3",
+    "webpack": "^1.12.1"
   }
 }
