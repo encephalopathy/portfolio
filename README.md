@@ -1,56 +1,108 @@
-#barata_portfolio
-> A simple and elegant website that shows off all my programming work..
+![](https://dl.dropboxusercontent.com/u/1803181/essential-react-logo.png)
 
-[![Build Status](https://travis-ci.org/encephalopathy/barata-portfolio.svg?branch=master)](https://travis-ci.org/encephalopathy/barata-portfolio) [![Dependency Status](https://david-dm.org/encephalopathy/barata-portfolio.svg)](https://david-dm.org/encephalopathy/barata-portfolio) [![devDependency Status](https://david-dm.org/encephalopathy/barata-portfolio.svg)](https://david-dm.org/encephalopathy/barata-portfolio#info=devDependencies)
+[![Travis branch](https://img.shields.io/travis/pheuter/essential-react.svg?style=flat-square)](https://travis-ci.org/pheuter/essential-react)
+[![Coveralls](https://img.shields.io/coveralls/pheuter/essential-react.svg?style=flat-square)](https://coveralls.io/r/pheuter/essential-react)
+[![David](https://img.shields.io/david/pheuter/essential-react.svg?style=flat-square)](https://david-dm.org/pheuter/essential-react)
+[![npm](https://img.shields.io/npm/v/essential-react.svg?style=flat-square)](https://www.npmjs.com/package/essential-react)
 
-##Dependencies
-It is actually quite simple really
+---
 
-First make sure you have node.js, grunt-cli, and bower installed.
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+A minimal skeleton for building testable React apps using Babel.
+
+- [Design Goals](#design-goals)
+- [Getting Started](#getting-started)
+- [Commands](#commands)
+  - [server](#server)
+  - [build](#build)
+  - [test](#test)
+  - [coveralls](#coveralls)
+  - [clean](#clean)
+- [Changelog](#changelog)
+
+## Design Goals
+
+- Use fewer tools (no yeoman, gulp, bower, etc...)
+- Babel 6 with Webpack and Hot Loader
+- Fast testing with mocked-out DOM
+- Import css files as class names
+- Separate [Smart and Dumb](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) components
+- No specific implementation of Flux or data fetching patterns
+
+
+## Getting Started
+
+```sh
+$ npm install
 ```
-brew install node # You can find the project at http://brew.sh/
-npm install -g grunt-cli bower
+
+Start the local dev server:
+
+```sh
+$ npm run server
 ```
 
-If you are installing node for the fist time you will most likely need to add npm to your path
+Navigate to **http://localhost:8080/** to view the app.
 
-```
-$ export PATH="/usr/local/share/npm/bin:$PATH"
-```
+## Commands
 
-You will probably want to add that to you .bash_profile.  I'll assume if you are using any other shell that you know what you are doing already :P
+A core philosophy of this skeleton app is to keep the tooling to a minimum. For this reason, you can find all the commands in the `scripts` section of [package.json](package.json).
 
-##Getting Started
+### server
 
-```
-npm install && bower install
+```sh
+$ npm run server
 ```
 
-That's it!!!
+**Input:** `src/main.jsx`
 
-##Running the Development Server
+This leverages [React Hot Loader](https://github.com/gaearon/react-hot-loader) to automatically start a local dev server and refresh file changes on the fly without reloading the page.
 
-Simply run ```grunt serve``` and you will start a local development server and open Chrome.  Watch tasks will be running, and your browser will be automatically refreshed whenever a file in the repo changes.
+It also automatically includes source maps, allowing you to browse code and set breakpoints on the original ES6 code:
 
-You can run serve with ```--port=9001``` to manually pick the port that the server will run on
+### build
 
-You can also change the port livereload is running on with the option ```--livereload=8675309```
+```sh
+$ npm run build
+```
 
-If you would like to have your server be accessible to other devices on your local machine use the options ```--hostname=0.0.0.0```
+**Input:** `src/main.jsx`
 
-##Production
+**Output:** `build/app.js`
 
-If you would like to compile your project for distribution simply run the command ```grunt``` to build ```dist/``` which will be a deployment ready version of your app.  Preprocessing will be applied to html, all js will be concatenated and minified.  All js / css assets will also have their name prepended with a hash for cache busting.
+Build minified app for production using the [production](http://webpack.github.io/docs/cli.html#production-shortcut-p) shortcut.
 
-##Why are styles so strict?
+### test
 
-While the default style guidelines are fairly strict, we are doing so with reason.  Famo.us is not only a framework for creating cutting edge web application, but a community project that we are all going to contribute to in the hopes of making the web better.  We truly believe that having consistent style within the community will make it easier for individuals to jump between different Famo.us modules without having to waste valuable time on processing style.
+```sh
+$ npm test
+```
 
-While our Package Manager (which is currently in development) will enforce our style guide if you would like to publish a module, feel free to disable eslint or jscs as you see fit.  If you want to disable linting you will need to comment out lines 18 - 19 in ```grunt/aliases.js```
+**Input:** `test/main.js`
 
-## Contributing
-All contributions are welcome! The simplest way to show your support for this project is to **"star" it**.
+**Output:** `coverage/`
 
-## Release History
- * 2014-04-19   v0.1.0   Generated by the [Yeoman Generator](https://github.com/famous/generator-famous) for [Famo.us](http://famo.us)
+Leverages [ava](https://github.com/sindresorhus/ava) to execute the test suite and generate code coverage reports using [nyc](https://github.com/bcoe/nyc)
+
+### coveralls
+
+```sh
+$ npm run coveralls
+```
+
+**Input:** `coverage/lcov.info`
+
+Sends the code coverage report generated by [nyc](https://github.com/bcoe/nyc) to [Coveralls](http://coveralls.io/).
+
+### clean
+
+```sh
+$ npm run clean
+```
+
+**Input:** `build/app.js`
+
+Removes the compiled app file from build.
+
+## [Changelog](CHANGELOG.md)
