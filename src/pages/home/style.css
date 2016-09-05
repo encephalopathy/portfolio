@@ -1,8 +1,44 @@
-.content {
-  margin-top: 20px;
+.mainBg, .galleryBg {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% auto;
+  width : 100%;
+  height: 600px;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  text-align:center;
+  position:fixed;
+  display: block;
+  overflow-y: scroll;
 }
 
-.welcomeText {
-  font-size: 20px;
-  color: #7F7F7F;
+.mainBg {
+  background-image: url("https://static.pexels.com/photos/1029/landscape-mountains-nature-clouds.jpg");
+}
+
+.galleryBg {
+  background-image: url("http://i358.photobucket.com/albums/oo24/encephalopathy/burnt_paper_desaturate_blue_zpsle3paat4.jpg");
+  margin-top: 600px;
+}
+
+.title {
+  font-size: 5em;
+  line-height: 4em;
+  color:#fff;
+  font-family: "Lucida Bright", "Garamond", sans-serif;
+  vertical-align: middle;
+  margin-top: .875em;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.container > div {
+  width : 100px;
+  height: 100px;
 }
