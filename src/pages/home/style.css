@@ -41,23 +41,24 @@
   -webkit-justify-content: center;
   justify-content: center;
 
+  margin-bottom: 1em;
   //Move to mixin.
   align-self: flex-end;
 }
 
 .contactInfoIcon {
   margin-left: 15px;
-  width : 50px;
-  height : 50px;
+  width : 3em;
+  height : 3em;
   background-size: 100% auto;
   background-repeat: no-repeat;
   background-position: center center;
 }
 
 .twitter {
-  margin-left: 15px;
-  width : 50px;
-  height : 50px;
+  margin-left: 1em;
+  width : 3em;
+  height : 3em;
   background-size: 100% auto;
   background-repeat: no-repeat;
   background-position: center center;
@@ -65,9 +66,9 @@
 }
 
 .linkedin {
-  margin-left: 15px;
-  width : 50px;
-  height : 50px;
+  margin-left: 1em;
+  width : 3em;
+  height : 3em;
   background-size: 100% auto;
   background-repeat: no-repeat;
   background-position: center center;
@@ -75,9 +76,9 @@
 }
 
 .github {
-  margin-left: 15px;
-  width : 50px;
-  height : 50px;
+  margin-left: 1em;
+  width : 3em;
+  height : 3em;
   background-size: 100% auto;
   background-repeat: no-repeat;
   background-position: center center;
@@ -85,9 +86,9 @@
 }
 
 .email {
-  margin-left: 15px;
-  width : 50px;
-  height : 50px;
+  margin-left: 1em;
+  width: 3em;
+  height: 3em;
   background-size: 100% auto;
   background-repeat: no-repeat;
   background-position: center center;
