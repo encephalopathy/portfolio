@@ -1,25 +1,16 @@
-.mainBg, .galleryBg {
+.websiteContainer {
+  display : -webkit-flex;
+  display : flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+  background-image: url("https://tinyurl.com/y7clvgbd");
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: 100% auto;
-  width : 100%;
-  height: 600px;
-  top: 0;
-  left: 0;
-  z-index: 0;
+  background-size: cover;
   text-align:center;
-  position:fixed;
-  display: block;
-  overflow-y: scroll;
-}
-
-.mainBg {
-  background-image: url("https://static.pexels.com/photos/1029/landscape-mountains-nature-clouds.jpg");
-}
-
-.galleryBg {
-  background-image: url("http://i358.photobucket.com/albums/oo24/encephalopathy/burnt_paper_desaturate_blue_zpsle3paat4.jpg");
-  margin-top: 600px;
+  position:relative;
 }
 
 .title {
@@ -28,17 +19,77 @@
   color:#fff;
   font-family: "Lucida Bright", "Garamond", sans-serif;
   vertical-align: middle;
-  margin-top: .875em;
 }
 
 .container {
-  display: flex;
+  flex: 1 1 auto;
   flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  align-items : center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
-.container > div {
-  width : 100px;
-  height: 100px;
+.containertwo {
+  display: flex;
+  flex: 0 0 none;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  align-items : center;
+  -webkit-justify-content: center;
+  justify-content: center;
+
+  //Move to mixin.
+  align-self: flex-end;
+}
+
+.contactInfoIcon {
+  margin-left: 15px;
+  width : 50px;
+  height : 50px;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.twitter {
+  margin-left: 15px;
+  width : 50px;
+  height : 50px;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image : url("https://image.freepik.com/free-icon/twitter-logo_318-40459.jpg");
+}
+
+.linkedin {
+  margin-left: 15px;
+  width : 50px;
+  height : 50px;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image : url("http://image.flaticon.com/icons/png/512/34/34227.png");
+}
+
+.github {
+  margin-left: 15px;
+  width : 50px;
+  height : 50px;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image : url("http://www.iconsdb.com/icons/preview/gray/github-10-xxl.png");
+}
+
+.email {
+  margin-left: 15px;
+  width : 50px;
+  height : 50px;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image : url("http://image.flaticon.com/icons/png/512/3/3468.png");
 }

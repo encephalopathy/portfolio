@@ -5,19 +5,16 @@ import styles from "./style.css";
 export default class HomePage extends React.Component {
   render() {
     return (
-      <div>
-      <section className={styles.mainBg}>
-        <div className={styles.title}>Brent Arata</div>
-      </section>
-      <section className={styles.galleryBg}>
-        <div className={styles.container}>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </section>
-      <section>
-      </section>
+      <div className={styles.websiteContainer}>
+        <section className={styles.container}>
+          <span className={styles.title}>Brent Arata</span>
+        </section>
+        <footer className={styles.containertwo}>
+            <a href="https://twitter.com/BrentArata" ><div className={styles.twitter}></div></a>
+            <a href="https://www.linkedin.com/in/brentarata/"><div className={styles.linkedin}></div></a>
+            <a href="mailto:brent,arata@gmail.com"><div className={styles.email}></div></a>
+            <a href="https://github.com/encephalopathy"><div className={styles.github}></div></a>
+        </footer>
       </div>
     );
   }
