@@ -4,9 +4,9 @@ import SocialLinks from "./SocialLinks";
 const Banner = () => (
   <div className="row banner">
     <div className="banner-text">
-      <h1 className="responsive-headline">Adventure awaits.</h1>
+      <h1 className="responsive-headline">I'm Brent Arata.</h1>
       <h3>
-        I'm a California based <span>software engineer</span>, 
+        I'm a California based <span>software engineer</span>,
         <span>game developer</span> and <span>tinkerer</span> creating awesome
         and effective visual and engaging experiences for companies of all sizes around the
         globe. Let's

@@ -11,18 +11,8 @@ import {
 const SocialLinks = () => (
   <ul className="social">
     <li>
-      <a href="#">
-        <FaFacebook />
-      </a>
-    </li>
-    <li>
-      <a href="#">
+      <a href="https://twitter.com/BrentArata">
         <FaTwitter />
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <FaGooglePlus />
       </a>
     </li>
     <li>
@@ -31,7 +21,7 @@ const SocialLinks = () => (
       </a>
     </li>
     <li>
-      <a href="#">
+      <a href="https://github.com/encephalopathy">
         <FaGithub />
       </a>
     </li>

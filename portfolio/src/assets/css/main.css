@@ -1193,10 +1193,10 @@ ul#nav li.current a {
   -moz-animation: html5 2s ease;
   -webkit-animation: html5 2s ease;
 }
-.game-development {
-  width: 95%;
-  -moz-animation: game-development 2s ease;
-  -webkit-animation: game-development 2s ease;
+.sql {
+  width: 50%;
+  -moz-animation: sql 2s ease;
+  -webkit-animation: sql 2s ease;
 }
 
 @-moz-keyframes photoshop {
@@ -1239,12 +1239,12 @@ ul#nav li.current a {
     width: 80%;
   }
 }
-@-moz-keyframes game-development {
+@-moz-keyframes sql {
   0% {
     width: 0px;
   }
   100% {
-    width: 90%;
+    width: 50%;
   }
 }
 
@@ -1288,12 +1288,12 @@ ul#nav li.current a {
     width: 80%;
   }
 }
-@-webkit-keyframes game-development {
+@-webkit-keyframes sql {
   0% {
     width: 0px;
   }
   100% {
-    width: 90%;
+    width: 50%;
   }
 }
 

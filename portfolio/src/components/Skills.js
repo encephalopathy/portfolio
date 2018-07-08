@@ -33,8 +33,8 @@ const Skills = () => (
             <em>HTML5</em>
           </li>
           <li>
-            <span className="bar-expand game-development" />
-            <em>Game Development</em>
+            <span className="bar-expand sql" />
+            <em>SQL</em>
           </li>
         </ul>
       </div>
