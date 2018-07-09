@@ -1,62 +1,40 @@
 {
-  "name": "essential-react",
-  "version": "0.5.0",
-  "description": "A minimal skeleton for building testable React apps using Babel",
-  "main": "src/main.js",
-  "scripts": {
-    "postinstall": "npm run build",
-    "server": "node start.js",
-    "build": "webpack -p --progress --config webpack.local.config.js",
-    "test": "nyc ava --fail-fast --verbose --require babel-register",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "clean": "rm build/app.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/pheuter/essential-react.git"
+  "name": "gatsby-starter-ceevee",
+  "description": "Gatsby Starter - CeeVee ",
+  "version": "1.0.1",
+  "author": "Aman Mittal <amandeepmittal@live.com>",
+  "dependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "gatsby": "^1.9.145",
+    "gatsby-link": "^1.6.32",
+    "gatsby-plugin-google-analytics": "^1.0.12",
+    "gatsby-plugin-google-fonts": "0.0.3",
+    "gatsby-plugin-react-helmet": "^1.0.8",
+    "gatsby-plugin-sass": "^1.0.14",
+    "gatsby-plugin-sharp": "^1.6.21",
+    "gatsby-plugin-typography": "1.7.10",
+    "gatsby-remark-copy-linked-files": "^1.5.9",
+    "gatsby-remark-images": "^1.5.33",
+    "gatsby-source-filesystem": "^1.5.8",
+    "gatsby-transformer-remark": "^1.7.21",
+    "gatsby-transformer-sharp": "^1.6.14",
+    "react-icons": "2.2.7",
+    "react-slick": "0.16.0",
+    "slick-carousel": "1.8.1",
+    "typography-theme-bootstrap": "0.16.7"
   },
   "keywords": [
-    "skeleton",
-    "template",
-    "react",
-    "quickstart"
+    "gatsby"
   ],
-  "author": "Mark Fayngersh",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pheuter/essential-react/issues"
+  "main": "n/a",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/pheuter/essential-react",
   "devDependencies": {
-    "autoprefixer": "^6.0.2",
-    "ava": "^0.12.0",
-    "babel-loader": "^6.2.4",
-    "babel-plugin-transform-runtime": "^6.5.2",
-    "babel-preset-es2015": "^6.5.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "babel-register": "^6.5.2",
-    "coveralls": "^2.11.2",
-    "css-loader": "^0.18.0",
-    "enzyme": "^2.0.0",
-    "extract-text-webpack-plugin": "^0.8.2",
-    "nyc": "^5.6.0",
-    "postcss-loader": "^0.6.0",
-    "postcss-nested": "^1.0.0",
-    "react-addons-test-utils": "^15.4.2",
-    "react-hot-loader": "^1.3.0",
-    "sinon": "^1.17.2",
-    "style-loader": "^0.12.3",
-    "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1"
-  },
-  "dependencies": {
-    "babel-core": "^6.5.2",
-    "babel-polyfill": "^6.5.0",
-    "babel-runtime": "^6.5.0",
-    "express": "^4.12.3",
-    "react": "^15.0.1",
-    "react-dom": "^15.4.2",
-    "react-router": "^2.0.0"
+    "prettier": "^1.9.2"
   }
 }
