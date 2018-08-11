@@ -9,7 +9,7 @@ const Footer = () => (
         <SocialLinks />
 
         <ul className="copyright">
-          <li>&copy; Copyright 2018 CeeVee</li>
+          <li>&copy; Copyright 2018 Brent Arata</li>
           <li>
             Design by{" "}
             <a title="Styleshout" href="http://www.styleshout.com/">
@@ -18,7 +18,7 @@ const Footer = () => (
           </li>
           <li>
             Developed in React ⚛️ by{" "}
-            <a href="http://www.amanhimself.me">Aman Mittal</a>
+            <span>Brent Arata</span>
           </li>
         </ul>
       </div>

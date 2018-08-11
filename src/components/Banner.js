@@ -21,7 +21,6 @@ const Banner = () => (
         </a>.
       </h3>
       <hr />
-      <SocialLinks />
     </div>
   </div>
 );

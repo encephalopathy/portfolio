@@ -31,7 +31,7 @@ const Navigation = () => (
       </li>
       <li>
         <a className="smoothscroll" href="#footer">
-          Footer
+          Contacts
         </a>
       </li>
     </ul>
