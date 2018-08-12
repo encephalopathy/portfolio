@@ -20,11 +20,25 @@ const Work = () => (
 
           <p>
             Responsible for the development for all engine, gameplay, UI menu components needed for the Development
-            of CLIMB! an over the top mountain climbing simulator.
+            of CLIMB! an over the top mountain climbing simulator.  Building a community through various channels
+            in order to generate interest for the game.
           </p>
         </div>
       </div>
-
+      <div className="row item">
+        <div className="twelve columns">
+          <h3>Penchecks Trust</h3>
+          <p className="info">
+            Software Developer
+            <span>&bull;</span>
+            <em className="date">July 2018 - Present</em>
+          </p>
+          <p>
+            Prettifying our user interface for our batch processor for paying out retirement distributions
+            to our participants.  Fine tuning our features where needed throughout our web applications end-to-end when needed.
+          </p>
+        </div>
+      </div>
       <div className="row item">
         <div className="twelve columns">
           <h3>Madcap Software</h3>
