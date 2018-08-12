@@ -35,7 +35,8 @@ const Work = () => (
           </p>
           <p>
             Prettifying our user interface for our batch processor for paying out retirement distributions
-            to our participants.  Fine tuning our features where needed throughout our web applications end-to-end when needed.
+            to our participants.  Fine tuning the performance of our features where needed end-to-end throughout all
+            web applications supported by our company.
           </p>
         </div>
       </div>
