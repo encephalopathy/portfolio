@@ -1,6 +1,6 @@
 import React from "react";
 import SocialLinks from "./SocialLinks";
-import { FaChevronCircleUp } from "react-icons/lib/fa";
+import { FaChevronCircleUp } from "react-icons/fa";
 
 const Footer = () => (
   <footer id="footer">

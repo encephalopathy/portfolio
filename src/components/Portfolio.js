@@ -1,5 +1,7 @@
 import React from "react";
-import { FaPlus, FaTag } from "react-icons/lib/fa";
+import { FaPlus, FaTag } from "react-icons/fa";
+import Gallery from "../components/Gallery";
+import Img from "gatsby-image";
 
 import Coffee from "../assets/images/portfolio/coffee.jpg";
 import Console from "../assets/images/portfolio/console.jpg";
@@ -11,8 +13,11 @@ import Origami from "../assets/images/portfolio/origami.jpg";
 import Retrocam from "../assets/images/portfolio/retrocam.jpg";
 
 const Portfolio = () => (
+
   <section id="portfolio">
+
     <div className="row">
+
       <div className="twelve columns collapsed">
         <h1>Check Out Some of My Works.</h1>
 
@@ -20,6 +25,8 @@ const Portfolio = () => (
           id="portfolio-wrapper"
           className="bgrid-quarters s-bgrid-thirds cf"
         >
+        <div>
+        </div>
           <div className="columns portfolio-item">
             <div className="item-wrap">
               <a href="#modal-01" title="">
@@ -156,6 +163,8 @@ const Portfolio = () => (
             </div>
           </div>
         </div>
+      </div>
+      <div>
       </div>
 
       {/* <div id="modal-01" className="popup-modal mfp-hide">

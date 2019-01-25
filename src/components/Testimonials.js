@@ -36,13 +36,9 @@ const Testimonials = () => (
               <li>
                 <blockquote>
                   <p>
-                    This is Photoshop's version of Lorem Ipsum. Proin gravida
-                    nibh vel velit auctor aliquet. Aenean sollicitudin, lorem
-                    quis bibendum auctor, nisi elit consequat ipsum, nec
-                    sagittis sem nibh id elit. Duis sed odio sit amet nibh
-                    vulputate cursus a sit amet mauris.
+                    Brent's Pretty Awesome.
                   </p>
-                  <cite>Mr. Adobe</cite>
+                  <cite>R.J. Dunlap - Extrokold CEO</cite>
                 </blockquote>
               </li>
             </Slider>
