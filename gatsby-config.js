@@ -2,7 +2,21 @@ module.exports = {
   siteMetadata: {
     title: "Gatsby Starter - Ceevee",
     author: "Aman Mittal",
-    description: "A Gatsby.js Starter based on Ceevee by Styleshout"
+    description: "A Gatsby.js Starter based on Ceevee by Styleshout",
+    galleryInfo: [
+      {
+        title: 'CLIMB!',
+        description: 'Personal Computer'
+      },
+      {
+        title: 'One Day',
+        description: 'Mobile Android/IOS'
+      },
+      {
+        title: 'Puzzle Defenders',
+        description: 'Web/HTML5 Canvas'
+      }
+    ]
   },
   pathPrefix: "/",
   plugins: [
@@ -16,7 +30,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/assets/images`
+        path: `${__dirname}/src/assets/images/portfolio`
       }
     },
     {
@@ -25,23 +39,13 @@ module.exports = {
         fonts: [`librebaskerville`, `open sans`]
       }
     },
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 630
-            }
-          },
-          "gatsby-remark-copy-linked-files"
-        ]
-      }
-    },
+    `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`
-  ]
+  ],
+  mapping: {
+
+  }
 };
