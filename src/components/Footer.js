@@ -11,12 +11,6 @@ const Footer = () => (
         <ul className="copyright">
           <li>&copy; Copyright 2018 Brent Arata</li>
           <li>
-            Design by{" "}
-            <a title="Styleshout" href="http://www.styleshout.com/">
-              Styleshout
-            </a>
-          </li>
-          <li>
             Developed in React ⚛️ by{" "}
             <span>Brent Arata</span>
           </li>
