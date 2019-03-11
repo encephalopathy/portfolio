@@ -5,17 +5,6 @@ import styled from 'styled-components';
 import { Dialog } from '@reach/dialog';
 import '@reach/dialog/styles.css';
 
-const LightboxContainer = styled.div`
-  /*display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 5px;*/
-  display: inherit;
-`;
-
-const PreviewButton = styled.a`
-
-`;
-
 export default class Lightbox extends Component {
   static propTypes = {
     images: PropTypes.array.isRequired, // eslint-disable-line
@@ -32,8 +21,11 @@ export default class Lightbox extends Component {
 
   render() {
     let images = this.props.images;
-    let galleryInfo = this.props.galleryInfo;
-    images = images.filter(image => image.node.childImageSharp != null);
+    const galleryInfo = this.props.galleryInfo;
+    images = images.filter(img => img.node.childImageSharp != null)
+      .sort((a, b) => a.node.childImageSharp.fluid.originalName.localeCompare(
+        b.node.childImageSharp.fluid.originalName
+      ));
     for (let i = 0; i < images.length && i < galleryInfo.length; ++i) {
       images[i].title = galleryInfo[i].title;
       images[i].description = galleryInfo[i].description;
@@ -41,9 +33,9 @@ export default class Lightbox extends Component {
     const { selectedImage, showLightbox } = this.state;
     return (
       <Fragment>
-        <LightboxContainer id="portfolio-wrapper" className="bgrid-quarters s-bgrid-thirds cf">
+        <div id="portfolio-wrapper" className="bgrid-quarters s-bgrid-thirds cf">
           {images.map(image => (
-            <PreviewButton
+            <a
               key={image.node.childImageSharp.fluid.src}
               onClick={() => this.setState({ showLightbox: true, selectedImage: image })}
             >
@@ -58,15 +50,15 @@ export default class Lightbox extends Component {
                     </div>
                 </div>
               </div>
-            </PreviewButton>
+            </a>
           ))}
-        </LightboxContainer>
+        </div>
         {showLightbox && (
         <Dialog>
-          <Img fluid={selectedImage.node.childImageSharp.fluid} />
           <button type="button" onClick={() => this.setState({ showLightbox: false })}>
-            Close
+            x
           </button>
+          <Img fluid={selectedImage.node.childImageSharp.fluid} />
         </Dialog>
         )}
       </Fragment>
