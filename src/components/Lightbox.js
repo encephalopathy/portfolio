@@ -32,8 +32,12 @@ export default class Lightbox extends Component {
 
   render() {
     let images = this.props.images;
+    let galleryInfo = this.props.galleryInfo;
     images = images.filter(image => image.node.childImageSharp != null);
-
+    for (let i = 0; i < images.length && i < galleryInfo.length; ++i) {
+      images[i].title = galleryInfo[i].title;
+      images[i].description = galleryInfo[i].description;
+    }
     const { selectedImage, showLightbox } = this.state;
     return (
       <Fragment>
@@ -48,8 +52,8 @@ export default class Lightbox extends Component {
                   <Img fluid={image.node.childImageSharp.fluid} />
                     <div className="overlay">
                       <div className="portfolio-item-meta">
-                        <h5>Console</h5>
-                          <p>Web Development</p>
+                        <h5>{image.title}</h5>
+                          <p>{image.description}</p>
                       </div>
                     </div>
                 </div>
