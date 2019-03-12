@@ -45,7 +45,7 @@ export default class Portfolio extends React.Component {
         <section id="portfolio">
           <div className="row">
             <div className="twelve columns collapsed">
-              <h1>Check Out Some of My Works.</h1>
+              <h1>Projects I have worked on</h1>
                 <Lightbox images={data.galleryImages.edges} galleryInfo={siteMetadata.galleryInfo} />
             </div>
           </div>
