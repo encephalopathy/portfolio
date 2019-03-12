@@ -1,6 +1,4 @@
 import React from "react";
-import { FaPlus, FaTag } from "react-icons/fa";
-import Img from "gatsby-image";
 import { StaticQuery, graphql } from 'gatsby';
 import { siteMetadata } from "../../gatsby-config";
 
@@ -10,12 +8,9 @@ export default class Portfolio extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log('siteMetadata', siteMetadata);
   }
 
   render() {
-    const { galleryData } = this.props;
-
     return (
       <StaticQuery
         query = {
@@ -37,6 +32,7 @@ export default class Portfolio extends React.Component {
                 childImageSharp {
                   fluid(maxWidth:2000) {
                     ...GatsbyImageSharpFluid
+                    originalName
                   }
                 }
               }

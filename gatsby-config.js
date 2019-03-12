@@ -6,15 +6,15 @@ module.exports = {
     galleryInfo: [
       {
         title: 'CLIMB!',
-        description: 'Personal Computer'
+        description: 'PC - Windows'
       },
       {
         title: 'One Day',
-        description: 'Mobile Android/IOS'
+        description: 'Mobile - Android/IOS'
       },
       {
         title: 'Puzzle Defenders',
-        description: 'Web/HTML5 Canvas'
+        description: 'Web - HTML5 Canvas'
       }
     ]
   },
