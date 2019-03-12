@@ -3,6 +3,7 @@ import { FaCloudDownloadAlt } from "react-icons/fa";
 
 import profilePic from "../assets/images/profilepic.jpg";
 
+
 const About = () => (
   <section id="about">
     <div className="row">
@@ -35,7 +36,7 @@ const About = () => (
           <div className="columns download">
             <p>
               <a href="https://drive.google.com/open?id=0B2r4AQmywI0oMThZc0xibTJ3TnZjaFhsWXdHaUJ1ZnVDaWow" className="button">
-                <FaCloudDownloadAlt /> Download Resume
+                <FaCloudDownloadAlt style={{verticalAlign:"text-top"}}/> Download Resume
               </a>
             </p>
           </div>

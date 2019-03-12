@@ -19,7 +19,7 @@ const Footer = () => (
 
       <div id="go-top">
         <a className="smoothscroll" title="Back to Top" href="#home">
-          <FaChevronCircleUp />
+          <FaChevronCircleUp style={{verticalAlign:"middle"}}/>
         </a>
       </div>
     </div>
