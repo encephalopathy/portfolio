@@ -15,6 +15,10 @@ module.exports = {
       {
         title: 'Puzzle Defenders',
         description: 'Web - HTML5 Canvas'
+      },
+      {
+        title: 'Sh*tty Elephants In Space',
+        description: 'PC - Windows'
       }
     ]
   },

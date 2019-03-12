@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Img from 'gatsby-image';
+import { FaTimes } from "react-icons/fa";
 import styled from 'styled-components';
 import { Dialog } from '@reach/dialog';
 import '@reach/dialog/styles.css';
@@ -55,9 +56,11 @@ export default class Lightbox extends Component {
         </div>
         {showLightbox && (
         <Dialog>
-          <button type="button" onClick={() => this.setState({ showLightbox: false })}>
-            x
-          </button>
+          <div className="dialog-btn" aria-hidden="true">
+            <button type="button" onClick={() => this.setState({ showLightbox: false })}>
+              <FaTimes/>
+            </button>
+          </div>
           <Img fluid={selectedImage.node.childImageSharp.fluid} />
         </Dialog>
         )}
