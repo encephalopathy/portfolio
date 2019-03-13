@@ -24,8 +24,8 @@ const About = () => (
               <span>Brent Arata</span>
               <br />
               <span>
-                11041 Delphinus Way
-                <br /> San Diego, CA 92126 US
+                190 Village Court
+                <br /> Walnut Creek, CA 94596 US
               </span>
               <br />
               <span>(858)248-5809</span>

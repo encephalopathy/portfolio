@@ -21,8 +21,8 @@ const Education = () => (
           <p>
             Worked with the Computational Cinematic Studio departments to help
             create the most innovative and visual stunning pieces of art known to digital entertainment.
-            Some of my works have been published at SIGGRAPH which have been integrated as part of
-            the technology produces at some of the top film production studios.
+            Some of my contributions have been used in publications at SIGGRAPH, one of the most prestiges
+            visual effects and computer graphics conferences in the world.
           </p>
         </div>
       </div>

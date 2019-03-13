@@ -27,11 +27,26 @@ const Work = () => (
       </div>
       <div className="row item">
         <div className="twelve columns">
+          <h3>automotiveMastermind</h3>
+          <p className="info">
+            Software Engineer
+            <span>&bull;</span>
+            <em className="date">January 2019 - Present</em>
+          </p>
+
+          <p>
+            Microservice development in .NET Core with communication being done mainly through Gcloud Pub/Sub streams.  Our microservices
+            are hosted all within Kubernetes within Google's Kubernetes Engine.
+          </p>
+        </div>
+      </div>
+      <div className="row item">
+        <div className="twelve columns">
           <h3>Penchecks Trust</h3>
           <p className="info">
             Software Developer
             <span>&bull;</span>
-            <em className="date">July 2018 - Present</em>
+            <em className="date">July 2018 - January 2019</em>
           </p>
           <p>
             Prettifying our user interface for our batch processor for paying out retirement distributions
