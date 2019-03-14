@@ -185,6 +185,7 @@ blockquote {
    margin: 30px 0px;
    padding-left: 40px;
    position: relative;
+   border-left: 0;
 }
 blockquote:before {
    content: "\201C";
