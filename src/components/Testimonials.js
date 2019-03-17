@@ -36,9 +36,11 @@ const Testimonials = () => (
               <li>
                 <blockquote>
                   <p>
-                    Brent's Pretty Awesome.
+                  I have the deepest personal and professional respect for Brent and I know he will
+rise to any challenge presented to him. He is extremely versatile, thriving in a group
+environment, but equally effective as an autonomous asset or single man team.
                   </p>
-                  <cite>R.J. Dunlap - Extrokold CEO</cite>
+                  <cite>Kevin Grove - ZeroHourGames</cite>
                 </blockquote>
               </li>
             </Slider>
