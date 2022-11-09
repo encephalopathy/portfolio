@@ -42,7 +42,7 @@ const Work = () => (
       </div>
       <div className="row item">
         <div className="twelve columns">
-          <h3>automotiveMastermind - S&ampP Global Mobility Company</h3>
+          <h3>automotiveMastermind</h3>
           <p className="info">
             Software Engineer
             <span>&bull;</span>
