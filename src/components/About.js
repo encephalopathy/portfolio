@@ -24,8 +24,8 @@ const About = () => (
               <span>Brent Arata</span>
               <br />
               <span>
-                190 Village Court
-                <br /> Walnut Creek, CA 94596 US
+                26493 Montana Way
+                <br /> Hayward, CA 94544 US
               </span>
               <br />
               <span>(858)248-5809</span>
