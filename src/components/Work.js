@@ -27,31 +27,32 @@ const Work = () => (
       </div>
       <div className="row item">
         <div className="twelve columns">
-          <h3>automotiveMastermind</h3>
+          <h3>Nevro Corporation</h3>
           <p className="info">
-            Software Engineer
+            Senior Software Engineer
             <span>&bull;</span>
-            <em className="date">January 2019 - Present</em>
+            <em className="date">April 2021 - Present</em>
           </p>
 
           <p>
-            Microservice development in .NET Core with communication being done mainly through Gcloud Pub/Sub streams.  Our microservices
-            are hosted all within Kubernetes within Google's Kubernetes Engine.
+             I mostly do DevOps and write some microservices written in .Net Core for our distributed system hosted on Amazon Web Services.
+             I sometimes lead a team, sometimes I don't.  I may have the ability to murder someone if a software bug occurs.
           </p>
         </div>
       </div>
       <div className="row item">
         <div className="twelve columns">
-          <h3>Penchecks Trust</h3>
+          <h3>automotiveMastermind - S&ampP Global Mobility Company</h3>
           <p className="info">
-            Software Developer
+            Software Engineer
             <span>&bull;</span>
-            <em className="date">July 2018 - January 2019</em>
+            <em className="date">January 2019 - March 2021</em>
           </p>
+
           <p>
-            Prettifying our user interface for our batch processor for paying out retirement distributions
-            to our participants.  Fine tuning the performance of our features where needed end-to-end throughout all
-            web applications supported by our company.
+            Microservice development in .NET Core with communication being done mainly through Google cloud Pub/Sub streams.  Our microservices
+            are hosted all within Kubernetes within Google's Kubernetes Engine.  I make sure our services are reliable and performant.  I don't
+            to do much data spelunking - if I don't need to.  If you own a car, I know everything about you.
           </p>
         </div>
       </div>
