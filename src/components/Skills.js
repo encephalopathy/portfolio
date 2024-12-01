@@ -21,6 +21,14 @@ const Skills = () => (
             <em>C#</em>
           </li>
           <li>
+            <span className="bar-expand typescript" />
+            <em>typescript</em>
+          </li>
+          <li>
+            <span className="bar-expand python" />
+            <em>python</em>
+          </li>
+          <li>
             <span className="bar-expand aws" />
             <em>Amazon Web Services</em>
           </li>

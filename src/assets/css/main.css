@@ -1158,6 +1158,16 @@ ul#nav li.current a {
   -moz-animation: csharp 2s ease;
   -webkit-animation: csharp 2s ease;
 }
+.typescript {
+  width: 70%;
+  -moz-animation: typescript 2s ease;
+  -webkit-animation: typescript 2s ease;
+}
+.python {
+  width: 60%;
+  -moz-animation: python 2s ease;
+  -webkit-animation: python 2s ease;
+}
 .aws {
   width: 70%;
   -moz-animation: aws 2s ease;
@@ -1198,6 +1208,22 @@ ul#nav li.current a {
   }
   100% {
     width: 90%;
+  }
+}
+@-moz-keyframes typescript {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 70%;
+  }
+}
+@-moz-keyframes python {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 60%;
   }
 }
 @-moz-keyframes aws {
@@ -1255,6 +1281,22 @@ ul#nav li.current a {
   }
   100% {
     width: 90%;
+  }
+}
+@-webkit-keyframes typescript {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 70%;
+  }
+}
+@-webkit-keyframes python {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 60%;
   }
 }
 @-webkit-keyframes aws {
