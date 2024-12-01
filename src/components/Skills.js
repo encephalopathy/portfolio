@@ -26,7 +26,7 @@ const Skills = () => (
           </li>
           <li>
             <span className="bar-expand azure" />
-            <em>Azure</em>
+            <em>Microsoft Azure</em>
           </li>
           <li>
             <span className="bar-expand kubernetes" />
