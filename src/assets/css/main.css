@@ -1158,20 +1158,25 @@ ul#nav li.current a {
   -moz-animation: csharp 2s ease;
   -webkit-animation: csharp 2s ease;
 }
-.javascript {
+.aws {
   width: 70%;
-  -moz-animation: javascript 2s ease;
-  -webkit-animation: javascript 2s ease;
+  -moz-animation: aws 2s ease;
+  -webkit-animation: aws 2s ease;
 }
-.css {
+.azure {
   width: 60%;
-  -moz-animation: css 2s ease;
-  -webkit-animation: css 2s ease;
+  -moz-animation: azure 2s ease;
+  -webkit-animation: azure 2s ease;
 }
-.html5 {
+.kubernetes {
+  width: 30%;
+  -moz-animation: kubernetes 2s ease;
+  -webkit-animation: kubernetes 2s ease;
+}
+.terraform {
   width: 80%;
-  -moz-animation: html5 2s ease;
-  -webkit-animation: html5 2s ease;
+  -moz-animation: terraform 2s ease;
+  -webkit-animation: terraform 2s ease;
 }
 .sql {
   width: 50%;
@@ -1195,7 +1200,7 @@ ul#nav li.current a {
     width: 90%;
   }
 }
-@-moz-keyframes javascript {
+@-moz-keyframes aws {
   0% {
     width: 0px;
   }
@@ -1203,7 +1208,7 @@ ul#nav li.current a {
     width: 70%;
   }
 }
-@-moz-keyframes css {
+@-moz-keyframes azure {
   0% {
     width: 0px;
   }
@@ -1211,7 +1216,15 @@ ul#nav li.current a {
     width: 60%;
   }
 }
-@-moz-keyframes html5 {
+@-moz-keyframes kubernetes {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 30%;
+  }
+}
+@-moz-keyframes terraform {
   0% {
     width: 0px;
   }
@@ -1244,15 +1257,7 @@ ul#nav li.current a {
     width: 90%;
   }
 }
-@-webkit-keyframes javascript {
-  0% {
-    width: 0px;
-  }
-  100% {
-    width: 80%;
-  }
-}
-@-webkit-keyframes css {
+@-webkit-keyframes aws {
   0% {
     width: 0px;
   }
@@ -1260,7 +1265,23 @@ ul#nav li.current a {
     width: 70%;
   }
 }
-@-webkit-keyframes html5 {
+@-webkit-keyframes azure {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 60%;
+  }
+}
+@-webkit-keyframes kubernetes {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 30%;
+  }
+}
+@-webkit-keyframes terraform {
   0% {
     width: 0px;
   }

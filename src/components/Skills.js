@@ -21,16 +21,20 @@ const Skills = () => (
             <em>C#</em>
           </li>
           <li>
-            <span className="bar-expand javascript" />
-            <em>Javascript</em>
+            <span className="bar-expand aws" />
+            <em>Amazon Web Services</em>
           </li>
           <li>
-            <span className="bar-expand css" />
-            <em>CSS</em>
+            <span className="bar-expand azure" />
+            <em>Azure</em>
           </li>
           <li>
-            <span className="bar-expand html5" />
-            <em>HTML5</em>
+            <span className="bar-expand kubernetes" />
+            <em>Kubernetes</em>
+          </li>
+          <li>
+            <span className="bar-expand terraform" />
+            <em>Terraform</em>
           </li>
           <li>
             <span className="bar-expand sql" />
